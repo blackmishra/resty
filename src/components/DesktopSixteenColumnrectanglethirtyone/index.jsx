@@ -39,7 +39,8 @@ const DesktopSixteenColumnrectanglethirtyone = (props) => {
             className="text-gray-600 text-sm w-full"
             size="txtInterRegular14"
           >
-            {props?.restaurantlocation}
+            New York City
+            {/* {props?.region} */}
           </Text>
         </div>
       </div>

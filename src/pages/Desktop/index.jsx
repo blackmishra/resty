@@ -2,9 +2,13 @@ import React from "react";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Select, { components } from "react-select"
-
+import { SearchBar } from "components/SearchBar";
+import { SearchResultsList } from "components/SearchResultsList";
 
 import { Button, Img, Input, Text } from "components";
+import { RestaurantGridList } from "components/RestaurantGridList";
+
+
 import DesktopSixteenColumnrectanglethirtyone from "components/DesktopSixteenColumnrectanglethirtyone";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
@@ -89,9 +93,10 @@ const DesktopPage = () => {
       flexDirection: "row-reverse"
     })
   };
+  const [searchr, setSearchr] = useState([]);
   const desktopSixteenColumnrectanglethirtyonePropList = RestData()
-  let total_num_rest = desktopSixteenColumnrectanglethirtyonePropList.length;
-  console.log(typeof(RestData()))
+  let total_num_rest = searchr.length;
+  console.log(typeof (RestData()))
   console.log(desktopSixteenColumnrectanglethirtyonePropList);
 
 
@@ -132,38 +137,8 @@ const DesktopPage = () => {
               variant="fill"
               components={{ DropdownIndicator, IndicatorSeparator: () => null }}
             ></Select> */}
-            <Input
-              name="search"
-              placeholder="Tigers|"
-              value={searchvalue}
-              onChange={(e) => setSearchvalue(e)}
-              className="!placeholder:text-blue_gray-600 !text-blue_gray-600 p-0 text-base text-left w-full"
-              wrapClassName="border border-blue_gray-300 border-solid flex w-full"
-              prefix={
-                <Img
-                  className="cursor-pointer h-6 mr-2 my-auto"
-                  src="images/img_search.svg"
-                  alt="search"
-                />
-              }
-              suffix={
-                <CloseSVG
-                  className="cursor-pointer h-6 my-auto"
-                  onClick={() => setSearchvalue("")}
-                  fillColor="#616675"
-                  style={{
-                    visibility: searchvalue?.length <= 0 ? "hidden" : "visible",
-                  }}
-                  height={24}
-                  width={24}
-                  viewBox="0 0 24 24"
-                />
-              }
-              shape="round"
-              color="white_A700"
-              size="sm"
-              variant="fill"
-            ></Input>
+            <SearchBar setSearchr={setSearchr} />
+            <SearchResultsList searchr={searchr} />
           </div>
           <div className="flex flex-col gap-6 items-start justify-start max-w-[1032px] w-full">
             <div className="flex flex-col items-center justify-start">
@@ -176,7 +151,7 @@ const DesktopPage = () => {
             </div>
             <div className="flex flex-col items-start justify-start w-full">
               <div className="md:gap-5 gap-[37px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">
-                {desktopSixteenColumnrectanglethirtyonePropList.map(
+                {searchr.map(
                   (props, index) => (
                     <React.Fragment
                       key={`DesktopSixteenColumnrectanglethirtyone${index}`}
@@ -188,6 +163,7 @@ const DesktopPage = () => {
                     </React.Fragment>
                   ),
                 )}
+                {/* <RestaurantGridList className="flex flex-1 flex-col gap-2 items-start justify-start w-full" searchr={searchr} /> */}
               </div>
             </div>
           </div>
