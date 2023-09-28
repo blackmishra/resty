@@ -22,6 +22,8 @@ const DesktopOne = React.lazy(() => import("pages/DesktopOne"));
 const DesktopSix = React.lazy(() => import("pages/DesktopSix"));
 const Desktop = React.lazy(() => import("pages/Desktop"));
 const DesktopSixteen = React.lazy(() => import("pages/DesktopSixteen"));
+const Landing = React.lazy(() => import("pages/Landing"));
+
 const ProjectRoutes = () => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
@@ -49,6 +51,8 @@ const ProjectRoutes = () => {
           <Route path="/password" element={<Password />} />
           <Route path="/succes" element={<Succes />} />
           <Route path="/desktopthirteen" element={<DesktopThirteen />} />
+          <Route path="/landing" element={<Landing />} />
+
         </Routes>
       </Router>
     </React.Suspense>

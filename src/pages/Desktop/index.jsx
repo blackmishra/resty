@@ -1,24 +1,99 @@
 import React from "react";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Select, { components } from "react-select"
+
 
 import { Button, Img, Input, Text } from "components";
 import DesktopSixteenColumnrectanglethirtyone from "components/DesktopSixteenColumnrectanglethirtyone";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
 import { CloseSVG } from "../../assets/images";
+// import Select from "react-select/dist/declarations/src/Select";
 
 const DesktopPage = () => {
   const [searchvalue, setSearchvalue] = React.useState("");
-  // const desktopSixteenColumnrectanglethirtyonePropList = [
+  // console.log(searchvalue)
+  const [optionList, setOptionList] = useState([] | null);
 
-  //   { restaurantimage: "images/img_rectangle31_230x230.png" },
-  //   {},
-  //   { restaurantimage: "images/img_rectangle31_1.png" },
-  //   {},
-  // ];
-  let desktopSixteenColumnrectanglethirtyonePropList = RestData()
+  const fetchData = () => {
+    axios
+      .get('https://resybot-22sv.onrender.com/')
+      .then((response) => {
+        const { data } = response;
+        if (response.status === 200) {
+          //check the api call is success by stats code 200,201 ...etc
+          // console.log(response.data.data)
+          // console.log(typeof (response.data.data))
+          setOptionList(response.data.data)
+        } else {
+          //error handle section 
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  var arr = [];
+  for (var i = 0; i < optionList.length; i++) {
+    arr.push({ value: optionList[i].rest_id, label: optionList[i].rest_name });
+  }
+  useEffect(() => {
+    fetchData();
+  }, [])
+  // console.log(arr);
+
+  const handleSelect = (data) => {
+    setSearchvalue(data)
+    // console.log(data);
+    // console.log(select)
+    // let rest_obj = JSON.stringify(data.label).concat(",", JSON.stringify(data.value))
+    // console.log(rest_obj)
+
+    // formRef.current.setFieldsValue({
+    //   rest_name: rest_obj
+    // })
+
+
+  }
+
+
+  const DropdownIndicator = props => {
+    return (
+      components.DropdownIndicator && (
+        <components.DropdownIndicator {...props}>
+          {/* <FontAwesomeIcon icon={props.selectProps.menuIsOpen ? "caret-up" : "caret-down"}/> */}
+          <Img
+            className="cursor-pointer h-6 mr-2 my-auto"
+            src="images/img_search.svg"
+            alt="search"
+          />
+          {/* <CloseSVG
+            className="cursor-pointer h-6 my-auto"
+            onClick={() => setSearchvalue("")}
+            fillColor="#616675"
+            style={{
+              visibility: props.selectProps.menuIsOpen? "visible" : "hidden",
+            }}
+            height={24}
+            width={24}
+            viewBox="0 0 24 24"
+          /> */}
+        </components.DropdownIndicator>
+      )
+    );
+  };
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      flexDirection: "row-reverse"
+    })
+  };
+  const desktopSixteenColumnrectanglethirtyonePropList = RestData()
+  let total_num_rest = desktopSixteenColumnrectanglethirtyonePropList.length;
+  console.log(typeof(RestData()))
   console.log(desktopSixteenColumnrectanglethirtyonePropList);
+
 
   return (
     <>
@@ -40,6 +115,23 @@ const DesktopPage = () => {
                 Which restaurant would you like to reserve?
               </Text>
             </div>
+            {/* <Select
+              name="search"
+              placeholder="Pick your Restaurant|"
+              options={arr}
+              value={searchvalue}
+              onChange={handleSelect}
+              // onChange={opt => console.log(opt.label, opt.value)}
+              isSearchable={true}
+              className="!placeholder:text-blue_gray-600 !text-blue_gray-600 p-0 text-base text-left w-full"
+              wrapClassName="border border-blue_gray-300 border-solid flex w-full"
+              styles={customStyles}
+              shape="round"
+              color="white_A700"
+              size="sm"
+              variant="fill"
+              components={{ DropdownIndicator, IndicatorSeparator: () => null }}
+            ></Select> */}
             <Input
               name="search"
               placeholder="Tigers|"
@@ -79,7 +171,7 @@ const DesktopPage = () => {
                 className="text-gray-600 text-sm"
                 size="txtInterMedium14Gray600"
               >
-                436 Restaurants
+                {total_num_rest} Restaurants Found
               </Text>
             </div>
             <div className="flex flex-col items-start justify-start w-full">
@@ -106,34 +198,34 @@ const DesktopPage = () => {
 };
 
 function RestData() {
-  const [restData, getRestData] = useState('')
+  const [restData, setRestData] = useState('')
   const url = 'https://resybot-22sv.onrender.com/search'
   useEffect(() => {
-      getAllRest();
+    getAllRest();
   }, [])
 
   const getAllRest = () => {
-      axios({
-          method: 'GET',
-          url: url,
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      })
-          .then((response) => {
-              const allRestList = response.data.data;
-              console.log(allRestList);
+    axios({
+      method: 'GET',
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        const allRestList = response.data.data;
+        // console.log(allRestList);
 
-              getRestData(allRestList)
-          })
-          .catch(error => console.error(`Error: $(error)`))
+        setRestData(allRestList)
+      })
+      .catch(error => console.error(`Error: $(error)`))
   }
   return (
-      // console.log(restData);
-      restData
-      // < Col key={restData.id} >
-      //     <Restaurant restData={restData} />
-      // </Col >
+    // console.log(restData);
+    restData
+    // < Col key={restData.id} >
+    //     <Restaurant restData={restData} />
+    // </Col >
   )
 }
 
