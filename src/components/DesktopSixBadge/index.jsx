@@ -2,7 +2,7 @@ import React from "react";
 
 import { Img, Text } from "components";
 
-const DesktopSixBadge = (props) => {
+const DesktopSixBadge = ({props}) => {
   return (
     <>
       <div className={props.className}>
@@ -10,7 +10,7 @@ const DesktopSixBadge = (props) => {
           className="text-blue_gray-900 text-center text-xs w-auto"
           size="txtInterMedium12Bluegray900"
         >
-          {props?.userrating}
+          {props?.rating}
         </Text>
         <div className="flex flex-col h-4 items-center justify-start w-4">
           <Img

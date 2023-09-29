@@ -1,6 +1,7 @@
 import React from "react";
+import { useState, useEffect } from 'react'
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
@@ -9,6 +10,22 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
 const DesktopSixPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [resto_details, setRest_details] = useState("")
+  const res_id = location.state.venue_id
+  console.log(res_id);
+  const url="http://127.0.0.1:8000/find/" + res_id
+  
+  const fetchData = () =>{
+      fetch(url)
+          .then((response) => response.json())
+          .then((json) => setRest_details(json))
+  }
+  useEffect(() => {
+      fetchData();
+      console.log(resto_details)
+    }, []);
 
   return (
     <>
@@ -36,7 +53,7 @@ const DesktopSixPage = () => {
                     className="text-base text-gray-900 w-auto"
                     size="txtInterMedium16"
                   >
-                    12 Chairs Cafe Soho, 4994
+                    {resto_details.name}
                   </Text>
                   <Text
                     className="text-gray-600 text-sm w-auto"
@@ -45,7 +62,9 @@ const DesktopSixPage = () => {
                     New York City
                   </Text>
                 </div>
-                <DesktopSixBadge className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                    
+                <DesktopSixBadge props={resto_details}
+                className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
               </div>
               <div className="flex flex-col gap-6 items-start justify-start w-[520px] sm:w-full">
                 <div className="flex flex-col items-center justify-start w-full">
@@ -97,7 +116,7 @@ const DesktopSixPage = () => {
                       className="text-base text-gray-900 w-auto"
                       size="txtInterMedium16"
                     >
-                      11 Tigers, 64816
+                      {resto_details.name}
                     </Text>
                     <Text
                       className="text-gray-600 text-sm w-auto"

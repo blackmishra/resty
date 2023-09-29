@@ -17,9 +17,8 @@ import { CloseSVG } from "../../assets/images";
 
 const DesktopPage = () => {
   const [searchvalue, setSearchvalue] = React.useState("");
-  // console.log(searchvalue)
   const [optionList, setOptionList] = useState([] | null);
-
+  
   const fetchData = () => {
     axios
       .get('https://resybot-22sv.onrender.com/')
@@ -48,44 +47,8 @@ const DesktopPage = () => {
 
   const handleSelect = (data) => {
     setSearchvalue(data)
-    // console.log(data);
-    // console.log(select)
-    // let rest_obj = JSON.stringify(data.label).concat(",", JSON.stringify(data.value))
-    // console.log(rest_obj)
-
-    // formRef.current.setFieldsValue({
-    //   rest_name: rest_obj
-    // })
-
 
   }
-
-
-  const DropdownIndicator = props => {
-    return (
-      components.DropdownIndicator && (
-        <components.DropdownIndicator {...props}>
-          {/* <FontAwesomeIcon icon={props.selectProps.menuIsOpen ? "caret-up" : "caret-down"}/> */}
-          <Img
-            className="cursor-pointer h-6 mr-2 my-auto"
-            src="images/img_search.svg"
-            alt="search"
-          />
-          {/* <CloseSVG
-            className="cursor-pointer h-6 my-auto"
-            onClick={() => setSearchvalue("")}
-            fillColor="#616675"
-            style={{
-              visibility: props.selectProps.menuIsOpen? "visible" : "hidden",
-            }}
-            height={24}
-            width={24}
-            viewBox="0 0 24 24"
-          /> */}
-        </components.DropdownIndicator>
-      )
-    );
-  };
 
   const customStyles = {
     control: (base) => ({
@@ -94,10 +57,10 @@ const DesktopPage = () => {
     })
   };
   const [searchr, setSearchr] = useState([]);
-  const desktopSixteenColumnrectanglethirtyonePropList = RestData()
+
   let total_num_rest = searchr.length;
   console.log(typeof (RestData()))
-  console.log(desktopSixteenColumnrectanglethirtyonePropList);
+  console.log(total_num_rest);
 
 
   return (
@@ -163,7 +126,7 @@ const DesktopPage = () => {
                     </React.Fragment>
                   ),
                 )}
-                {/* <RestaurantGridList className="flex flex-1 flex-col gap-2 items-start justify-start w-full" searchr={searchr} /> */}
+              
               </div>
             </div>
           </div>
