@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
+import DesktopSixImage from "components/DesktopSixImage";
+
 import DesktopSixGuest from "components/DesktopSixGuest";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
@@ -24,6 +26,7 @@ const DesktopSixPage = () => {
   }
   useEffect(() => {
       fetchData();
+      console.log("Fetching")
       console.log(resto_details)
     }, []);
 
@@ -70,36 +73,37 @@ const DesktopSixPage = () => {
                 <div className="flex flex-col items-center justify-start w-full">
                   <Img
                     className="h-[303px] md:h-auto object-cover rounded-bl-lg rounded-br-lg w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][0]}
                     alt="rectangleThirtyOne"
                   />
                 </div>
                 <div className="flex sm:flex-col flex-row gap-4 items-start justify-between w-full">
-                  <Img
+                <DesktopSixImage props={resto_details} />
+                  {/* <Img
                     className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][1]}
                     alt="rectangleThirtyOne_One"
                   />
                   <Img
                     className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][2]}
                     alt="rectangleThirtyTwo"
                   />
                   <Img
                     className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][3]}
                     alt="rectangleThirtyThree"
                   />
                   <Img
                     className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][4]}
                     alt="rectangleThirtyFour"
                   />
                   <Img
                     className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][5]}
                     alt="rectangleThirtyFive"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -108,7 +112,7 @@ const DesktopSixPage = () => {
                 <div className="flex flex-row gap-[18px] items-center justify-start w-full">
                   <Img
                     className="h-[60px] md:h-auto object-cover rounded-lg w-[60px]"
-                    src="images/img_rectangle31.png"
+                    src={resto_details['images_list'][0]}
                     alt="rectangleThirty"
                   />
                   <div className="flex flex-col gap-1 h-12 md:h-auto items-start justify-between w-auto">
