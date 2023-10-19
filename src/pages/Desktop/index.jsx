@@ -16,7 +16,7 @@ import { CloseSVG } from "../../assets/images";
 // import Select from "react-select/dist/declarations/src/Select";
 
 const DesktopPage = () => {
-  const [searchvalue, setSearchvalue] = React.useState("");
+  const [searchvalue, setSearchvalue] = useState([] | null);
   const [optionList, setOptionList] = useState([] | null);
   
   const fetchData = () => {
