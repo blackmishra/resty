@@ -79,31 +79,6 @@ const DesktopSixPage = () => {
                 </div>
                 <div className="flex sm:flex-col flex-row gap-4 items-start justify-between w-full">
                 <DesktopSixImage props={resto_details} />
-                  {/* <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src={resto_details['images_list'][1]}
-                    alt="rectangleThirtyOne_One"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src={resto_details['images_list'][2]}
-                    alt="rectangleThirtyTwo"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src={resto_details['images_list'][3]}
-                    alt="rectangleThirtyThree"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src={resto_details['images_list'][4]}
-                    alt="rectangleThirtyFour"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src={resto_details['images_list'][5]}
-                    alt="rectangleThirtyFive"
-                  /> */}
                 </div>
               </div>
             </div>
