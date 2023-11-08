@@ -14,11 +14,41 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
 import { CloseSVG } from "../../assets/images";
 // import Select from "react-select/dist/declarations/src/Select";
+function RestData() {
+  const [restData, setRestData] = useState('')
+  // const url = 'https://resybot-22sv.onrender.com/search'
+  const url = 'http://localhost:8000/home'
+
+  useEffect(() => {
+    getAllRest();
+  }, [])
+
+  const getAllRest = () => {
+    axios({
+      method: 'GET',
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        const allRestList = response.data;
+        // console.log(allRestList);
+
+        setRestData(allRestList)
+      })
+      .catch(error => console.error(`Error: $(error)`))
+  }
+  return (
+    Object.values(restData)
+  )
+}
+
 
 const DesktopPage = () => {
   const [searchvalue, setSearchvalue] = useState([] | null);
   const [optionList, setOptionList] = useState([] | null);
-  
+
   const fetchData = () => {
     axios
       .get('https://resybot-22sv.onrender.com/')
@@ -59,6 +89,8 @@ const DesktopPage = () => {
   const [searchr, setSearchr] = useState([]);
 
   let total_num_rest = searchr.length;
+  const allRestDetails = RestData()
+  console.log(typeof (allRestDetails))
   console.log(typeof (RestData()))
   console.log(total_num_rest);
 
@@ -114,7 +146,7 @@ const DesktopPage = () => {
             </div>
             <div className="flex flex-col items-start justify-start w-full">
               <div className="md:gap-5 gap-[37px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">
-                {searchr.map(
+                {allRestDetails.map(
                   (props, index) => (
                     <React.Fragment
                       key={`DesktopSixteenColumnrectanglethirtyone${index}`}
@@ -126,7 +158,7 @@ const DesktopPage = () => {
                     </React.Fragment>
                   ),
                 )}
-              
+
               </div>
             </div>
           </div>
@@ -136,38 +168,6 @@ const DesktopPage = () => {
   );
 };
 
-function RestData() {
-  const [restData, setRestData] = useState('')
-  // const url = 'https://resybot-22sv.onrender.com/search'
-  const url = 'http://localhost:8000/home'
 
-  useEffect(() => {
-    getAllRest();
-  }, [])
-
-  const getAllRest = () => {
-    axios({
-      method: 'GET',
-      url: url,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((response) => {
-        const allRestList = response.data.data;
-        // console.log(allRestList);
-
-        setRestData(allRestList)
-      })
-      .catch(error => console.error(`Error: $(error)`))
-  }
-  return (
-    // console.log(restData);
-    restData
-    // < Col key={restData.id} >
-    //     <Restaurant restData={restData} />
-    // </Col >
-  )
-}
 
 export default DesktopPage;
