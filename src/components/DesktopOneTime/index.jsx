@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Text } from "components";
 
-const DesktopFourteenColumnwhichtimesuits = (props) => {
+const DesktopOneTime = (props) => {
   return (
     <>
       <div className={props.className}>
@@ -267,7 +267,7 @@ const DesktopFourteenColumnwhichtimesuits = (props) => {
   );
 };
 
-DesktopFourteenColumnwhichtimesuits.defaultProps = {
+DesktopOneTime.defaultProps = {
   whichtimesuits: "Which time suits for you?",
   time: "4:00 PM",
   time1: "03:30 AM",
@@ -289,4 +289,4 @@ DesktopFourteenColumnwhichtimesuits.defaultProps = {
   time17: "03:30 AM",
 };
 
-export default DesktopFourteenColumnwhichtimesuits;
+export default DesktopOneTime;

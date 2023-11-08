@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Img, List, Text } from "components";
-import DesktopFourteenColumnwhichtimesuits from "components/DesktopFourteenColumnwhichtimesuits";
+import DesktopFourteenColumnwhichtimesuits from "components/DesktopOneTime";
 import DesktopFourteenDate from "components/DesktopFourteenDate";
 import DesktopOneGuest from "components/DesktopOneGuest";
 import DesktopSixBadge from "components/DesktopSixBadge";

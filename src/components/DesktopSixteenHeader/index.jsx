@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 import { Button, Img, Text } from "components";
 
 const DesktopSixteenHeader = (props) => {
@@ -9,12 +9,15 @@ const DesktopSixteenHeader = (props) => {
         <div className="flex flex-col items-center justify-start w-[73%] md:w-full">
           <div className="flex flex-row md:gap-10 items-start justify-between max-w-[1032px] w-full">
             <div className="flex flex-col items-start justify-start">
+            <Link to="/desktop">
               <Text
                 className="md:text-2xl sm:text-[22px] text-[26px] text-gray-900 tracking-[-0.52px]"
                 size="txtCopperplate26"
+                
               >
                 {props?.resty}
               </Text>
+              </Link>
             </div>
             <div className="flex flex-col items-center justify-start w-[8%]">
               <Button

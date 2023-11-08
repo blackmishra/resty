@@ -6,9 +6,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixImage from "components/DesktopSixImage";
+import DesktopOneDate from "components/DesktopOneDate";
 
 import DesktopSixGuest from "components/DesktopSixGuest";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
+import DesktopOneTime from "components/DesktopOneTime";
 
 const DesktopSixPage = () => {
   const navigate = useNavigate();
@@ -108,6 +110,8 @@ const DesktopSixPage = () => {
               </div>
               <div className="flex flex-col gap-4 items-start justify-start w-[455px] sm:w-full">
                 <DesktopSixGuest className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-2 items-start justify-end p-4 rounded-[16px] shadow-bs w-full" />
+                {/* <DesktopOneDate className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-4 items-start justify-end pr-4 py-4 rounded-[16px] shadow-bs1 w-full" /> */}
+                
                 <div className="bg-white-A700 border border-gray-200 border-solid flex flex-col items-center justify-start p-4 rounded-[12px] shadow-bs w-[455px] sm:w-full">
                   <Text
                     className="text-base text-gray-900 w-auto"
@@ -116,6 +120,8 @@ const DesktopSixPage = () => {
                     What date would you like to reserve ?
                   </Text>
                 </div>
+                <DesktopOneTime className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-4 items-start justify-end py-4 rounded-[16px] shadow-bs1 w-full" />
+
                 <Input
                   name="componentOne"
                   placeholder="Which time suits for you"
