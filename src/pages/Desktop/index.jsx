@@ -138,7 +138,9 @@ const DesktopPage = () => {
 
 function RestData() {
   const [restData, setRestData] = useState('')
-  const url = 'https://resybot-22sv.onrender.com/search'
+  // const url = 'https://resybot-22sv.onrender.com/search'
+  const url = 'http://localhost:8000/home'
+
   useEffect(() => {
     getAllRest();
   }, [])

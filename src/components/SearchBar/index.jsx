@@ -5,18 +5,22 @@ import "./SearchBar.css"
 export const SearchBar = ({setSearchr}) => {
     const [searchi, setSearchi] = useState("")
     const fetchData = (value) => {
-        fetch("http://127.0.0.1:8000/search")
+        fetch("http://127.0.0.1:8000/home")
             .then((response) => response.json())
             .then((json) => {
-                // console.log(json);
+                // console.log(json)
+                console.log(typeof(json));
+
                 const results = json.filter((item) => {
                     return(
                         value&&
                         item && 
-                        item.name &&
-                        item.name.toLowerCase()
+                        item.rest_name &&
+                        item.rest_name.toLowerCase()
                         .includes(value.toLowerCase()))
                 })
+                console.log(results)
+
                 setSearchr(results)
             });
     }
