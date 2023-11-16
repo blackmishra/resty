@@ -22,9 +22,9 @@ const SearchResult = ({search}) => {
   // }, []);
 
   const handleChange = (value) => {
-    console.log(`You clicked on ${search.id}`)
+    console.log(`You clicked on ${search.rest_id}`)
     // console.log(rest_details)
-    const venue_id = search.id
+    const venue_id = search.rest_id
     let path = `/desktopsix`; 
     // fetchData();
     navigate(path, {replace:true, state:{venue_id}});

@@ -1,39 +1,70 @@
 import React from "react";
 import { useState, useEffect } from 'react'
-
+import Collapsible from 'react-collapsible';
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixImage from "components/DesktopSixImage";
 import DesktopOneDate from "components/DesktopOneDate";
+import TimePickerComp from "components/TimePickerComp";
+
+import CalendarComp from "components/CalendarComp";
+import * as moment from 'moment';
 
 import DesktopSixGuest from "components/DesktopSixGuest";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopOneTime from "components/DesktopOneTime";
 
 const DesktopSixPage = () => {
+  const base_url = "http://127.0.0.1:8000/"
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const [resto_details, setRest_details] = useState("")
+  const [bookingDate, setbookingDate] = useState(new Date());
+  const [from_time, setFromTime] = useState('10:00');
+  const [num_guests, setNumGuests] = useState(2);
+
+
   const res_id = location.state.venue_id
   console.log(res_id);
-  const url="http://127.0.0.1:8000/find/" + res_id
-  
-  const fetchData = () =>{
-      fetch(url)
-          .then((response) => response.json())
-          .then((json) => setRest_details(json))
+  const url = base_url + "find/" + res_id
+
+  const makeRequest = (req, res) => {
+    fetch(base_url + "booking_request", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        rest_name: resto_details.name,
+        rest_id: res_id,
+        reservation_date: bookingDate,
+        time_slot: from_time,
+        guests_size: num_guests
+
+      })
+    })
   }
+  console.log(bookingDate)
+  const fetchData = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setRest_details(json))
+  }
+
   useEffect(() => {
-      fetchData();
-      console.log("Fetching")
-      console.log(resto_details)
-    }, []);
+    fetchData();
+    console.log("Fetching")
+    console.log(resto_details)
+
+  }, []);
 
   return (
-    <>{ resto_details && 
+    <>{resto_details &&
       <div className="bg-white-A700 flex flex-col font-copperplate gap-[54px] items-center justify-start mx-auto pb-[230px] w-full">
         <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
         <div className="flex flex-col font-inter gap-[55px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
@@ -67,9 +98,9 @@ const DesktopSixPage = () => {
                     New York City
                   </Text>
                 </div>
-                    
+
                 <DesktopSixBadge props={resto_details}
-                className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                  className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
               </div>
               <div className="flex flex-col gap-6 items-start justify-start w-[520px] sm:w-full">
                 <div className="flex flex-col items-center justify-start w-full">
@@ -80,7 +111,7 @@ const DesktopSixPage = () => {
                   />
                 </div>
                 <div className="flex sm:flex-col flex-row gap-4 items-start justify-between w-full">
-                <DesktopSixImage props={resto_details} />
+                  <DesktopSixImage props={resto_details} />
                 </div>
               </div>
             </div>
@@ -109,9 +140,10 @@ const DesktopSixPage = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-4 items-start justify-start w-[455px] sm:w-full">
-                <DesktopSixGuest className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-2 items-start justify-end p-4 rounded-[16px] shadow-bs w-full" />
+                <DesktopSixGuest setNumGuests = {setNumGuests}
+                className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-2 items-start justify-end p-4 rounded-[16px] shadow-bs w-full" />
                 {/* <DesktopOneDate className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-4 items-start justify-end pr-4 py-4 rounded-[16px] shadow-bs1 w-full" /> */}
-                
+
                 <div className="bg-white-A700 border border-gray-200 border-solid flex flex-col items-center justify-start p-4 rounded-[12px] shadow-bs w-[455px] sm:w-full">
                   <Text
                     className="text-base text-gray-900 w-auto"
@@ -119,24 +151,35 @@ const DesktopSixPage = () => {
                   >
                     What date would you like to reserve ?
                   </Text>
-                </div>
-                <DesktopOneTime className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-4 items-start justify-end py-4 rounded-[16px] shadow-bs1 w-full" />
 
-                <Input
-                  name="componentOne"
-                  placeholder="Which time suits for you"
-                  className="font-medium p-0 placeholder:text-gray-900 text-base text-left w-full"
-                  wrapClassName="border border-gray-200 border-solid rounded-[12px] w-full"
-                  color="white_A700"
-                  size="md"
-                  variant="fill"
-                ></Input>
+                  <span class="text-xl mb-3"></span>
+                  <CalendarComp setbookingDate = {setbookingDate}/>
+                </div>
+                <div className="bg-white-A700 border border-gray-200 border-solid flex flex-col items-center justify-start p-4 rounded-[12px] shadow-bs w-[455px] sm:w-full">
+                  <Text
+                    className="text-base text-gray-900 w-auto"
+                    size="txtInterMedium16"
+                  >
+                    Which time suits for you ?
+                  </Text>
+                  <TimePickerComp setFromTime = {setFromTime}/>
+                </div>
               </div>
+              <Button
+                className="cursor-pointer font-medium text-base text-center w-full"
+                shape="round"
+                color="red_400"
+                size="sm"
+                variant="fill"
+                onClick={makeRequest}
+              >
+                Save
+              </Button>
             </div>
           </div>
         </div>
       </div>
-}
+    }
     </>
   );
 };

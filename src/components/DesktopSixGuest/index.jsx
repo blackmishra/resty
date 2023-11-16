@@ -3,35 +3,21 @@ import { useState, useEffect } from 'react'
 
 import { Button, Img, List, Text } from "components";
 
-const DesktopSixGuest = (props) => {
+const DesktopSixGuest = ({setNumGuests}) => {
   const [count, setCount] = useState(2);
-
-
 
   return (
     <>
-      <div className={props.className}>
-        <Text
-          className="mt-0.5 text-gray-600 text-sm"
-          size="txtInterMedium14Gray600"
-        >
-          {props?.numberofguests}
-        </Text>
-        
-          <div className="border-b border-gray-100 border-solid flex flex-row gap-2 items-center justify-between my-0 py-3 w-full">
+      <div>
+          <div className="border-gray-100 border-solid flex flex-row gap-2 items-center justify-between my-0  w-full">
             <div className="flex flex-col gap-1 items-start justify-start w-auto">
               <Text
-                className="text-base text-gray-900 w-auto"
+                className="text-base  w-auto"
                 size="txtInterMedium16"
               >
-                {props?.adultscount}
+                Number of guests you are expecting?
               </Text>
-              <Text
-                className="text-gray-600 text-sm w-auto"
-                size="txtInterRegular14"
-              >
-                {props?.ages13orabovecount}
-              </Text>
+              
             </div>
             <div className="flex flex-row gap-2 items-start justify-start w-auto">
               <Button
@@ -40,7 +26,12 @@ const DesktopSixGuest = (props) => {
                 color="white_A700"
                 size="xs"
                 variant="fill"
-                onClick={() => setCount(prevCount => prevCount - 1)}
+                onClick={() => {
+                  setCount(prevCount => prevCount - 1)
+                  // console.log("Printing guest count")
+                  // console.log(count)
+                  setNumGuests(count-1)
+                }}
               >
                 <Img
                   className="h-5"
@@ -49,7 +40,7 @@ const DesktopSixGuest = (props) => {
                 />
               </Button>
               <Text
-                className="text-blue_gray-300 text-center text-lg w-[11px]"
+                className="text-center text-lg w-[11px]"
                 size="txtInterRegular18Bluegray300"
               >
                 {/* {props?.twotext2} */}
@@ -61,23 +52,16 @@ const DesktopSixGuest = (props) => {
                 color="white_A700"
                 size="xs"
                 variant="fill"
-                onClick={() => setCount(prevCount => prevCount + 1)}
+                onClick={() => {
+                  setCount(prevCount => prevCount + 1)
+                  setNumGuests(count+1)
+                }}
               >
                 <Img className="h-5" src="images/img_plus.svg" alt="plus" />
               </Button>
             </div>
           </div>
 
-
-        {/* <Button
-          className="border border-blue_gray-100_01 border-solid cursor-pointer font-inter font-medium text-base text-center w-[423px]"
-          shape="round"
-          color="white_A700"
-          size="sm"
-          variant="fill"
-        >
-          {props?.continuebutton}
-        </Button> */}
       </div>
     </>
   );
