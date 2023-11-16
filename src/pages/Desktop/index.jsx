@@ -87,13 +87,20 @@ const DesktopPage = () => {
     })
   };
   const [searchr, setSearchr] = useState([]);
-
-  let total_num_rest = searchr.length;
+  let total_num_rest = 0;
+  let all_rest_list = [];
   const allRestDetails = RestData()
-  console.log(typeof (allRestDetails))
-  console.log(typeof (RestData()))
-  console.log(total_num_rest);
-
+  if (searchr.length>0){
+    total_num_rest = searchr.length;
+    all_rest_list = searchr
+  }
+  else {
+    total_num_rest = allRestDetails.length;
+    all_rest_list = allRestDetails
+  }
+  // console.log(typeof (allRestDetails))
+  // console.log(typeof (RestData()))
+  // console.log(total_num_rest);
 
   return (
     <>
@@ -136,17 +143,17 @@ const DesktopPage = () => {
             <SearchResultsList searchr={searchr} />
           </div>
           <div className="flex flex-col gap-6 items-start justify-start max-w-[1032px] w-full">
-            {/* <div className="flex flex-col items-center justify-start">
+            <div className="flex flex-col items-center justify-start">
               <Text
                 className="text-gray-600 text-sm"
                 size="txtInterMedium14Gray600"
               >
                 {total_num_rest} Restaurants Found
               </Text>
-            </div> */}
+            </div>
             <div className="flex flex-col items-start justify-start w-full">
               <div className="md:gap-5 gap-[37px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">
-                {allRestDetails.map(
+                {all_rest_list.map(
                   (props, index) => (
                     <React.Fragment
                       key={`DesktopSixteenColumnrectanglethirtyone${index}`}

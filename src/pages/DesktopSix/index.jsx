@@ -3,11 +3,15 @@ import { useState, useEffect } from 'react'
 import Collapsible from 'react-collapsible';
 import { useNavigate, useLocation } from "react-router-dom";
 
+
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixImage from "components/DesktopSixImage";
 import DesktopOneDate from "components/DesktopOneDate";
 import TimePickerComp from "components/TimePickerComp";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import CalendarComp from "components/CalendarComp";
 import * as moment from 'moment';
@@ -17,6 +21,7 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopOneTime from "components/DesktopOneTime";
 
 const DesktopSixPage = () => {
+  const notify = () => toast("Wow so easy!");
   const base_url = "http://127.0.0.1:8000/"
 
   const navigate = useNavigate();
@@ -48,6 +53,16 @@ const DesktopSixPage = () => {
 
       })
     })
+      .then((response) => {
+        console.log(response.status)
+        if (response.ok) {
+          toast.success("Reservation request added!")
+        }
+        else{
+          toast.error("Bad Request. Please try again.")
+        }
+
+      })
   }
   console.log(bookingDate)
   const fetchData = () => {
@@ -80,6 +95,7 @@ const DesktopSixPage = () => {
             }
           >
             <div className="text-base text-gray-900 text-left">Back</div>
+            <ToastContainer />
           </Button>
           <div className="flex md:flex-col flex-row gap-14 items-start justify-start max-w-[1032px] w-full">
             <div className="flex sm:flex-1 flex-col gap-8 items-start justify-start w-auto sm:w-full">
@@ -140,8 +156,8 @@ const DesktopSixPage = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-4 items-start justify-start w-[455px] sm:w-full">
-                <DesktopSixGuest setNumGuests = {setNumGuests}
-                className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-2 items-start justify-end p-4 rounded-[16px] shadow-bs w-full" />
+                <DesktopSixGuest setNumGuests={setNumGuests}
+                  className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-2 items-start justify-end p-4 rounded-[16px] shadow-bs w-full" />
                 {/* <DesktopOneDate className="bg-white-A700 border border-gray-200 border-solid flex flex-col gap-4 items-start justify-end pr-4 py-4 rounded-[16px] shadow-bs1 w-full" /> */}
 
                 <div className="bg-white-A700 border border-gray-200 border-solid flex flex-col items-center justify-start p-4 rounded-[12px] shadow-bs w-[455px] sm:w-full">
@@ -153,7 +169,7 @@ const DesktopSixPage = () => {
                   </Text>
 
                   <span class="text-xl mb-3"></span>
-                  <CalendarComp setbookingDate = {setbookingDate}/>
+                  <CalendarComp setbookingDate={setbookingDate} />
                 </div>
                 <div className="bg-white-A700 border border-gray-200 border-solid flex flex-col items-center justify-start p-4 rounded-[12px] shadow-bs w-[455px] sm:w-full">
                   <Text
@@ -162,7 +178,7 @@ const DesktopSixPage = () => {
                   >
                     Which time suits for you ?
                   </Text>
-                  <TimePickerComp setFromTime = {setFromTime}/>
+                  <TimePickerComp setFromTime={setFromTime} />
                 </div>
               </div>
               <Button
