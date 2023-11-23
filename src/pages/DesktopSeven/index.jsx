@@ -34,14 +34,14 @@ const DesktopSevenPage = () => {
                   className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
                   size="txtInterExtraBold30"
                 >
-                  Log in and start booking
+                  Log in and compete your booking
                 </Text>
                 <div className="flex flex-col items-start justify-start w-auto">
                   <div className="flex flex-col items-start justify-start w-auto">
                     <div className="flex flex-col gap-4 items-start justify-start w-[343px]">
                       <DesktopTwelveColumn
                         className="flex flex-col gap-1 items-start justify-start w-full"
-                        labelOne="Mail"
+                        labelOne="Email"
                       />
                       <div className="flex flex-col items-center justify-start w-full">
                         <DesktopTwelveColumn className="flex flex-col gap-1 items-start justify-start w-[343px]" />

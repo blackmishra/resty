@@ -5,7 +5,7 @@ import { Img, Text } from "components";
 const DesktopSixBadge = ({props}) => {
   return (
     <>
-      <div className={props.className}>
+      <div>
         <Text
           className="text-blue_gray-900 text-center text-xs w-auto"
           size="txtInterMedium12Bluegray900"

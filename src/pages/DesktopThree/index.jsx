@@ -21,7 +21,7 @@ const DesktopThreePage = () => {
         <div className="flex flex-col font-copperplate items-center w-full">
           <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
         </div>
-        <Button
+        {/* <Button
           className="common-pointer bg-transparent cursor-pointer flex items-center justify-center min-w-[66px] md:ml-[0] ml-[204px]"
           onClick={() => navigate("/desktopseven")}
           leftIcon={
@@ -35,27 +35,26 @@ const DesktopThreePage = () => {
           <div className="font-inter text-base text-gray-900 text-left">
             Back
           </div>
-        </Button>
+        </Button> */}
         <div className="flex flex-col font-inter items-center md:px-10 sm:px-5 px-[444px] w-full">
           <div className="flex flex-col gap-8 items-start justify-start w-auto sm:w-full">
             <div className="flex flex-col gap-11 items-start justify-start w-auto sm:w-full">
               <div
-                className="common-pointer flex flex-row gap-4 items-center justify-start w-[41%] md:w-full"
-                onClick={() => navigate("/desktopfifteen")}
-              >
+                className="common-pointer flex flex-row gap-4 items-center justify-start w-[41%] md:w-full">
                 <div className="bg-white-A700 flex flex-col h-16 items-center justify-start rounded-[50%] shadow-bs w-16">
                   <div className="bg-gray-900 flex flex-col h-16 items-center justify-end pl-5 pt-5 rounded-[50%] w-16">
                     <Text
                       className="text-center text-lg text-white-A700"
                       size="txtInterMedium18"
                     >
-                      EA
+                      SM
                     </Text>
                     <div className="bg-gray-50 flex flex-col h-5 items-center justify-start rounded-[50%] w-5">
                       <Img
                         className="h-5 rounded-[50%] w-5"
                         src="images/img_pluscircle.svg"
                         alt="pluscircle"
+                        onClick={() => navigate("/desktopfifteen")}
                       />
                     </div>
                   </div>
@@ -66,7 +65,7 @@ const DesktopThreePage = () => {
                       className="text-base text-gray-900 w-auto"
                       size="txtInterMedium16"
                     >
-                      Enes Aktaş
+                     Shashank Mishra
                     </Text>
                     <Img
                       className="h-5 w-5"
@@ -78,7 +77,7 @@ const DesktopThreePage = () => {
                     className="text-gray-600 text-sm"
                     size="txtInterRegular14"
                   >
-                    enes@deserve.studio
+                    abc@email.com
                   </Text>
                 </div>
               </div>
@@ -152,7 +151,7 @@ const DesktopThreePage = () => {
                   </div>
                   <Button
                     className="common-pointer border border-blue_gray-100_01 border-solid cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktopeleven")}
+                    onClick={() => navigate("/desktop")}
                     shape="round"
                     color="white_A700"
                     size="md"
@@ -163,7 +162,7 @@ const DesktopThreePage = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
+            {/* <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
               <div className="flex flex-row gap-4 items-start justify-between w-full">
                 <Text
                   className="text-gray-600 text-sm w-auto"
@@ -475,7 +474,7 @@ const DesktopThreePage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

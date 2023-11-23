@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react'
 import Collapsible from 'react-collapsible';
 import { useNavigate, useLocation } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 
 import { Button, Img, Input, List, Text } from "components";
@@ -34,6 +35,8 @@ const DesktopSixPage = () => {
 
 
   const res_id = location.state.venue_id
+  const cookies = new Cookies();
+
   console.log(res_id);
   const url = base_url + "find/" + res_id
 
@@ -57,25 +60,60 @@ const DesktopSixPage = () => {
         console.log(response.status)
         if (response.ok) {
           toast.success("Reservation request added!")
+          let path = `/desktopten`;
+          setTimeout(() => {
+            navigate(path, { replace: true, state: {} });
+          }, 3000);
         }
-        else{
+        else {
           toast.error("Bad Request. Please try again.")
         }
 
       })
   }
+
+  const saveFormData = (req, res) => {
+    try {
+
+    cookies.set('rest_name', resto_details.name, { path: '/' });
+    cookies.set('rest_id', res_id, { path: '/' });
+    cookies.set('reservation_date', bookingDate, { path: '/' });
+    cookies.set('time_slot', from_time, { path: '/' });
+    cookies.set('guests_size', num_guests, { path: '/' });
+    cookies.set('rest_details_ck', resto_details, { path: '/' });
+
+    console.log(cookies.get('rest_name'));
+    console.log(cookies.get('rest_id'));
+    console.log(cookies.get('reservation_date'));
+    console.log(cookies.get('time_slot'));
+    console.log(cookies.get('guests_size'));
+
+    toast.success("Data Saved!")
+    let path = `/desktopseven`;
+          setTimeout(() => {
+            navigate(path, { replace: true, state: {} });
+          }, 3000);
+  } catch (error) {
+    toast.error("Bad Request. Please try again.")
+    console.error('An error occurred:', error);
+  
+  }
+
+  }
   console.log(bookingDate)
   const fetchData = () => {
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setRest_details(json))
+      .then((json) => {
+        setRest_details(json)
+      })
   }
 
   useEffect(() => {
     fetchData();
     console.log("Fetching")
     console.log(resto_details)
-
+    console.log('Printing cookie data:', cookies.get('rest_details_ck'));
   }, []);
 
   return (
@@ -187,7 +225,7 @@ const DesktopSixPage = () => {
                 color="red_400"
                 size="sm"
                 variant="fill"
-                onClick={makeRequest}
+                onClick={saveFormData}
               >
                 Save
               </Button>

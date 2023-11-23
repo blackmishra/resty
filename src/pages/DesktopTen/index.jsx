@@ -54,6 +54,7 @@ const DesktopTenPage = () => {
                         color="red_400"
                         size="sm"
                         variant="fill"
+                        onClick={() => navigate("/desktopnine")}
                       >
                         Sign up
                       </Button>

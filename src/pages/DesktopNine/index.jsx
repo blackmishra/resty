@@ -1,15 +1,24 @@
 import React from "react";
+import Cookies from 'universal-cookie';
 
 import { useNavigate } from "react-router-dom";
 
 import { Button, Img, Input, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
+import DesktopSixImage from "components/DesktopSixImage";
+
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopTwelveColumn from "components/DesktopTwelveColumn";
 import DesktopTwelveDate from "components/DesktopTwelveDate";
+import LoginButton from "components/LoginComp";
 
 const DesktopNinePage = () => {
   const navigate = useNavigate();
+  const cookies = new Cookies(null, { path: '/' });
+
+  console.log(cookies.get('rest_name'))
+  const rest_data = cookies.get('rest_details_ck')
+  console.log(rest_data)
 
   return (
     <>
@@ -37,7 +46,7 @@ const DesktopNinePage = () => {
                     className="text-base text-gray-900 w-auto"
                     size="txtInterMedium16"
                   >
-                    12 Chairs Cafe Soho, 4994
+                    {cookies.get('rest_name')}
                   </Text>
                   <Text
                     className="text-gray-600 text-sm w-auto"
@@ -46,42 +55,19 @@ const DesktopNinePage = () => {
                     New York City
                   </Text>
                 </div>
-                <DesktopSixBadge className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                <DesktopSixBadge props={rest_data}
+                className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
               </div>
               <div className="flex flex-col gap-6 items-start justify-start w-[520px] sm:w-full">
                 <div className="flex flex-col items-center justify-start w-full">
                   <Img
                     className="h-[303px] md:h-auto object-cover rounded-bl-lg rounded-br-lg w-full"
-                    src="images/img_rectangle31.png"
+                    src={rest_data['images_list'][0]}
                     alt="rectangleThirtyOne"
                   />
                 </div>
                 <div className="flex sm:flex-col flex-row gap-4 items-start justify-between w-full">
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyOne_One"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyTwo"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyThree"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyFour"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyFive"
-                  />
+                  <DesktopSixImage props={rest_data} />
                 </div>
               </div>
             </div>
@@ -90,7 +76,7 @@ const DesktopNinePage = () => {
                 <div className="flex flex-row gap-[18px] items-center justify-start w-full">
                   <Img
                     className="h-[60px] md:h-auto object-cover rounded-lg w-[60px]"
-                    src="images/img_rectangle31.png"
+                    src={rest_data['images_list'][0]}
                     alt="rectangleThirty"
                   />
                   <div className="flex flex-col gap-1 h-12 md:h-auto items-start justify-between w-auto">
@@ -98,7 +84,7 @@ const DesktopNinePage = () => {
                       className="text-base text-gray-900 w-auto"
                       size="txtInterMedium16"
                     >
-                      11 Tigers, 64816
+                      {cookies.get('rest_name')}
                     </Text>
                     <Text
                       className="text-gray-600 text-sm w-auto"
@@ -115,11 +101,10 @@ const DesktopNinePage = () => {
                     className="leading-[24.00px] max-w-[311px] md:max-w-full text-base text-gray-900"
                     size="txtInterMedium16"
                   >
-                    Enter your Resty account details to complete your
-                    reservation.
+                    Finish setting up the account by adding your Resy account details.
                   </Text>
                   <div className="flex flex-row gap-2 items-start justify-start w-auto">
-                    <Button
+                    {/* <Button
                       className="common-pointer cursor-pointer font-medium min-w-[70px] rounded-[15px] text-center text-xs"
                       onClick={() => navigate("/desktoptwelve")}
                       color="gray_200"
@@ -135,7 +120,7 @@ const DesktopNinePage = () => {
                       variant="fill"
                     >
                       Login
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
                 <div className="flex flex-col gap-4 items-start justify-start w-full">
@@ -160,6 +145,7 @@ const DesktopNinePage = () => {
                   >
                     Complete Reservation
                   </Button>
+                  <LoginButton />
                 </div>
               </div>
             </div>
