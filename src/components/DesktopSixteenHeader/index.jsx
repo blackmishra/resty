@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, Img, Text } from "components";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import DropdownComp from "components/DropdownComp";
+import Profile from "components/ProfileComp";
+
 
 
 
@@ -19,11 +22,14 @@ const DesktopSixteenHeader = (props) => {
                   size="txtCopperplate26"
 
                 >
-                  {props?.resty}
+                  RESTY
                 </Text>
               </Link>
             </div>
-            <div className="flex flex-col items-center justify-start w-[8%]">
+            <Profile />
+
+            {/* <div className="flex flex-col items-center justify-start w-[8%]">
+
               <Button
                 onClick={() => navigate("/desktopthree")}
                 className="cursor-pointer flex items-center justify-center min-w-[81px] rounded-[15px]"
@@ -42,7 +48,7 @@ const DesktopSixteenHeader = (props) => {
                   {props?.profiletext}
                 </div>
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

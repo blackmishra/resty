@@ -105,7 +105,7 @@ const DesktopPage = () => {
   return (
     <>
       <div className="bg-white-A700 flex flex-col font-copperplate gap-[59px] items-center justify-start mx-auto pb-[18px] w-full">
-        <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
+        <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto max-w-auto items-center justify-center p-2.5 w-full" />
         <div className="flex flex-col font-inter gap-[42px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
           <div className="flex flex-col gap-8 items-start justify-start w-[482px] sm:w-full">
             <div className="flex flex-col gap-4 items-start justify-start w-auto sm:w-full">

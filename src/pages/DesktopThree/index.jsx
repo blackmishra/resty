@@ -1,25 +1,27 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { useNavigate } from "react-router-dom";
 
 import { Button, Img, SelectBox, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
+import LogoutButton from "components/Logout";
 
 const thisMonthOptionsList = [
   { label: "Option1", value: "option1" },
   { label: "Option2", value: "option2" },
   { label: "Option3", value: "option3" },
 ];
-
 const DesktopThreePage = () => {
   const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <>
       <div className="bg-gray-50 flex flex-col gap-[54px] justify-start mx-auto pb-40 w-full">
         <div className="flex flex-col font-copperplate items-center w-full">
-          <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
+          <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-auto p-2.5 w-full" />
         </div>
         {/* <Button
           className="common-pointer bg-transparent cursor-pointer flex items-center justify-center min-w-[66px] md:ml-[0] ml-[204px]"
@@ -37,35 +39,27 @@ const DesktopThreePage = () => {
           </div>
         </Button> */}
         <div className="flex flex-col font-inter items-center md:px-10 sm:px-5 px-[444px] w-full">
+          
           <div className="flex flex-col gap-8 items-start justify-start w-auto sm:w-full">
             <div className="flex flex-col gap-11 items-start justify-start w-auto sm:w-full">
               <div
                 className="common-pointer flex flex-row gap-4 items-center justify-start w-[41%] md:w-full">
+                  
                 <div className="bg-white-A700 flex flex-col h-16 items-center justify-start rounded-[50%] shadow-bs w-16">
-                  <div className="bg-gray-900 flex flex-col h-16 items-center justify-end pl-5 pt-5 rounded-[50%] w-16">
-                    <Text
-                      className="text-center text-lg text-white-A700"
-                      size="txtInterMedium18"
-                    >
-                      SM
-                    </Text>
-                    <div className="bg-gray-50 flex flex-col h-5 items-center justify-start rounded-[50%] w-5">
-                      <Img
-                        className="h-5 rounded-[50%] w-5"
-                        src="images/img_pluscircle.svg"
-                        alt="pluscircle"
-                        onClick={() => navigate("/desktopfifteen")}
-                      />
-                    </div>
-                  </div>
+                  <Img
+                      className="rounded-[50%] shadow-bs w-16"
+                      src={user.picture} alt={user.name}
+                    />
+                  
                 </div>
                 <div className="flex flex-col gap-1.5 items-start justify-start w-[65%]">
                   <div className="flex flex-row gap-1 items-center justify-center w-auto">
                     <Text
                       className="text-base text-gray-900 w-auto"
                       size="txtInterMedium16"
+                      style={{ textTransform: 'capitalize' }}
                     >
-                     Shashank Mishra
+                      {user.name}
                     </Text>
                     <Img
                       className="h-5 w-5"
@@ -77,8 +71,9 @@ const DesktopThreePage = () => {
                     className="text-gray-600 text-sm"
                     size="txtInterRegular14"
                   >
-                    abc@email.com
+                    {user.email}
                   </Text>
+                  <LogoutButton />
                 </div>
               </div>
               <div className="flex flex-col gap-4 items-start justify-start w-auto sm:w-full">
@@ -162,7 +157,7 @@ const DesktopThreePage = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
+            <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
               <div className="flex flex-row gap-4 items-start justify-between w-full">
                 <Text
                   className="text-gray-600 text-sm w-auto"
@@ -474,7 +469,7 @@ const DesktopThreePage = () => {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

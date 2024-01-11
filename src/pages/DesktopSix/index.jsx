@@ -40,37 +40,7 @@ const DesktopSixPage = () => {
   console.log(res_id);
   const url = base_url + "find/" + res_id
 
-  const makeRequest = (req, res) => {
-    fetch(base_url + "booking_request", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        rest_name: resto_details.name,
-        rest_id: res_id,
-        reservation_date: bookingDate,
-        time_slot: from_time,
-        guests_size: num_guests
-
-      })
-    })
-      .then((response) => {
-        console.log(response.status)
-        if (response.ok) {
-          toast.success("Reservation request added!")
-          let path = `/desktopten`;
-          setTimeout(() => {
-            navigate(path, { replace: true, state: {} });
-          }, 3000);
-        }
-        else {
-          toast.error("Bad Request. Please try again.")
-        }
-
-      })
-  }
+  
 
   const saveFormData = (req, res) => {
     try {
@@ -119,7 +89,7 @@ const DesktopSixPage = () => {
   return (
     <>{resto_details &&
       <div className="bg-white-A700 flex flex-col font-copperplate gap-[54px] items-center justify-start mx-auto pb-[230px] w-full">
-        <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
+        <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-auto p-2.5 w-full" />
         <div className="flex flex-col font-inter gap-[55px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
           <Button
             className="common-pointer bg-transparent cursor-pointer flex items-center justify-center min-w-[66px]"
