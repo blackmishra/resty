@@ -9,6 +9,7 @@ import * as moment from 'moment';
 const CalendarComp = ({setbookingDate}) => {
 
     const [newDate, setDate] = useState(new Date());
+
     return (
         <DatePicker
             selected={newDate}
@@ -23,6 +24,7 @@ const CalendarComp = ({setbookingDate}) => {
             // showIcon
             // icon="fa fa-calendar"
         />
+        
     );
 };
 export default CalendarComp;

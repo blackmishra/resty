@@ -8,17 +8,20 @@ import DesktopTwelveColumn from "components/DesktopTwelveColumn";
 import LoginButton from "components/LoginComp";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 
 const DesktopSevenPage = () => {
   const navigate = useNavigate();
   const base_url = "http://127.0.0.1:8000/"
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
 
   const makeRequest = (req, res) => {
+    console.log("Printing from Makerequest");
+    console.log(Cookies.get('reservation_date'))
     fetch(base_url + "booking_request", {
       method: 'POST',
       headers: {
@@ -27,10 +30,15 @@ const DesktopSevenPage = () => {
       },
       body: JSON.stringify({
         rest_name: Cookies.get('rest_name'),
-        rest_id: Cookies.get('res_id'),
+        rest_id: Cookies.get('rest_id'),
         reservation_date: Cookies.get('reservation_date'),
         time_slot: Cookies.get('time_slot'),
         guests_size: Cookies.get('guests_size')
+        // rest_name: 'Saint Tuesday',
+        // rest_id: '60484',
+        // reservation_date: '2024-01-11T13:38:14.165Z',
+        // time_slot: '10:00',
+        // guests_size: '2'
 
       })
 

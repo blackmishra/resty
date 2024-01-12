@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from 'react'
 import Collapsible from 'react-collapsible';
 import { useNavigate, useLocation } from "react-router-dom";
-import Cookies from 'universal-cookie';
-
+// import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 import { Button, Img, Input, List, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
@@ -35,28 +35,25 @@ const DesktopSixPage = () => {
 
 
   const res_id = location.state.venue_id
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   console.log(res_id);
   const url = base_url + "find/" + res_id
-
-  
-
   const saveFormData = (req, res) => {
     try {
 
-    cookies.set('rest_name', resto_details.name, { path: '/' });
-    cookies.set('rest_id', res_id, { path: '/' });
-    cookies.set('reservation_date', bookingDate, { path: '/' });
-    cookies.set('time_slot', from_time, { path: '/' });
-    cookies.set('guests_size', num_guests, { path: '/' });
-    cookies.set('rest_details_ck', resto_details, { path: '/' });
+    Cookies.set('rest_name', resto_details.name, { path: '/' });
+    Cookies.set('rest_id', res_id, { path: '/' });
+    Cookies.set('reservation_date', bookingDate, { path: '/' });
+    Cookies.set('time_slot', from_time, { path: '/' });
+    Cookies.set('guests_size', num_guests, { path: '/' });
+    Cookies.set('rest_details_ck', resto_details, { path: '/' });
 
-    console.log(cookies.get('rest_name'));
-    console.log(cookies.get('rest_id'));
-    console.log(cookies.get('reservation_date'));
-    console.log(cookies.get('time_slot'));
-    console.log(cookies.get('guests_size'));
+    console.log(Cookies.get('rest_name'));
+    console.log(Cookies.get('rest_id'));
+    console.log(Cookies.get('reservation_date'));
+    console.log(Cookies.get('time_slot'));
+    console.log(Cookies.get('guests_size'));
 
     toast.success("Data Saved!")
     let path = `/desktopseven`;
@@ -83,7 +80,7 @@ const DesktopSixPage = () => {
     fetchData();
     console.log("Fetching")
     console.log(resto_details)
-    console.log('Printing cookie data:', cookies.get('rest_details_ck'));
+    console.log('Printing cookie data:', Cookies.get('rest_details_ck'));
   }, []);
 
   return (
