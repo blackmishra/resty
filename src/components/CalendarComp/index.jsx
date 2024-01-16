@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { Button, Img, Input, List, Text } from "components";
-import * as moment from 'moment';
+import moment from 'moment';
 
 
 const CalendarComp = ({setbookingDate}) => {
