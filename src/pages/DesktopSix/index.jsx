@@ -12,10 +12,7 @@ import DesktopOneDate from "components/DesktopOneDate";
 import TimePickerComp from "components/TimePickerComp";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 import CalendarComp from "components/CalendarComp";
-import * as moment from 'moment';
 
 import DesktopSixGuest from "components/DesktopSixGuest";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
