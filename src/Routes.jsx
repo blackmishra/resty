@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Switch } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
 
@@ -28,15 +28,13 @@ const Landing = React.lazy(() => import("pages/Landing"));
 const ProjectRoutes = () => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
-      
       <Router>
-        
         <Routes>
           <Route path="/" element={<Desktop />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/desktopsixteen" element={<DesktopSixteen />} />
-          <Route index path="/desktop" element={<Desktop />} />
-          <Route index path="/desktopsix" element={<DesktopSix />} />
+          <Route path="/desktop" element={<Desktop />} />
+          <Route path="/desktopsix" element={<DesktopSix />} />
           <Route path="/desktopone" element={<DesktopOne />} />
           <Route path="/desktopfourteen" element={<DesktopFourteen />} />
           <Route path="/desktoptwelve" element={<DesktopTwelve />} />

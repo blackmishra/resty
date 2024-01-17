@@ -1,6 +1,7 @@
 {
   "name": "resty",
   "version": "0.1.0",
+  "homepage": "https://resty-booking.onrender.com/",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.2.3",
