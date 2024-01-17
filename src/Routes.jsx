@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
-import Desktop from "pages/Desktop";
+// import Desktop from "pages/Desktop";
 
 const DesktopThirteen = React.lazy(() => import("pages/DesktopThirteen"));
 const Succes = React.lazy(() => import("pages/Succes"));
@@ -22,7 +22,7 @@ const DesktopTwelve = React.lazy(() => import("pages/DesktopTwelve"));
 const DesktopFourteen = React.lazy(() => import("pages/DesktopFourteen"));
 const DesktopOne = React.lazy(() => import("pages/DesktopOne"));
 const DesktopSix = React.lazy(() => import("pages/DesktopSix"));
-// const Desktop = React.lazy(() => import("pages/Desktop"));
+const Desktop = React.lazy(() => import("pages/desktop"));
 const DesktopSixteen = React.lazy(() => import("pages/DesktopSixteen"));
 const Landing = React.lazy(() => import("pages/Landing"));
 
