@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
 import Desktop from "pages/Desktop.jsx";
+import DesktopSix from "pages/DesktopSix.jsx";
+
 
 const DesktopThirteen = React.lazy(() => import("pages/DesktopThirteen"));
 const Succes = React.lazy(() => import("pages/Succes"));
@@ -21,7 +23,7 @@ const DesktopNine = React.lazy(() => import("pages/DesktopNine"));
 const DesktopTwelve = React.lazy(() => import("pages/DesktopTwelve"));
 const DesktopFourteen = React.lazy(() => import("pages/DesktopFourteen"));
 const DesktopOne = React.lazy(() => import("pages/DesktopOne"));
-const DesktopSix = React.lazy(() => import("pages/DesktopSix"));
+// const DesktopSix = React.lazy(() => import("pages/DesktopSix"));
 // const Desktop = React.lazy(() => import("pages/Desktop"));
 const DesktopSixteen = React.lazy(() => import("pages/DesktopSixteen"));
 const Landing = React.lazy(() => import("pages/Landing"));
