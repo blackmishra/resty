@@ -45,7 +45,7 @@ function RestData() {
 }
 
 
-const DesktopPage = () => {
+const Desktop = () => {
   const [searchvalue, setSearchvalue] = useState([] | null);
   const [optionList, setOptionList] = useState([] | null);
 
@@ -177,4 +177,4 @@ const DesktopPage = () => {
 
 
 
-export default DesktopPage;
+export default Desktop;
