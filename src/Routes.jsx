@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
-import Desktop from "pages/Desktop";
+import Desktop from "pages/Desktop.jsx";
 
 const DesktopThirteen = React.lazy(() => import("pages/DesktopThirteen"));
 const Succes = React.lazy(() => import("pages/Succes"));
@@ -29,7 +29,9 @@ const Landing = React.lazy(() => import("pages/Landing"));
 const ProjectRoutes = () => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
+      
       <Router>
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
@@ -57,6 +59,7 @@ const ProjectRoutes = () => {
 
         </Routes>
       </Router>
+
     </React.Suspense>
   );
 };
