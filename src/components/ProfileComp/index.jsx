@@ -54,7 +54,6 @@ const Profile = (props) => {
             //     <p>{user.email}</p>
             //   </div>
             <div className="flex flex-col items-center justify-start w-[20%]">
-
                 <Button
                     onClick={() => navigate("/desktopthree")}
                     className="cursor-pointer flex items-center justify-center min-w-[81px] rounded-[15px]"
