@@ -1,12 +1,49 @@
 import React from "react";
-
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Img, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 
-const DesktopFivePage = () => {
+const DesktopFivePage = ({ route, navigation }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const base_url = process.env.REACT_APP_BASE_URL
+  const [resto_details, setRest_details] = useState("")
+  const bookingID  = location.state.booking_details
+  const reservation_details  = location.state.reservation_details
+  console.log(reservation_details)
+  const url = base_url + "find/" + reservation_details.rest_id
+  var dateString = new Date(reservation_details.reservation_date).toUTCString();
+  dateString = dateString.split(' ').slice(0, 4).join(' ');
+  console.log(dateString)
+  var hh = new String(reservation_details.time_slot).split(':')[0]
+  var mm = new String(reservation_details.time_slot).split(':')[1]
+
+  var time_slot = ''
+  var ampm = 'AM'
+  if (Number(hh)>12){
+    hh = Number(hh) - 12
+    ampm='PM'
+    time_slot = hh + ':' + mm
+    console.log(time_slot)
+
+  }
+
+  const fetchData = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setRest_details(json)
+      })
+  }
+
+  useEffect(() => {
+    fetchData();
+    console.log("Fetching")
+    console.log(resto_details)
+    console.log("Data Fetching")
+  }, []);
 
   return (
     <>
@@ -71,7 +108,7 @@ const DesktopFivePage = () => {
                   variant="outline"
                 >
                   <div className="font-medium text-left text-sm">
-                    Booking ID: 348512
+                    Booking ID: {bookingID}
                   </div>
                 </Button>
               </div>
@@ -90,7 +127,7 @@ const DesktopFivePage = () => {
                             className="text-base text-gray-900 w-auto"
                             size="txtInterMedium16"
                           >
-                            11 Tigers, 64816
+                            {resto_details.name}, {resto_details.venue_id}
                           </Text>
                           <Text
                             className="text-gray-600 text-sm w-auto"
@@ -99,7 +136,8 @@ const DesktopFivePage = () => {
                             New York City
                           </Text>
                         </div>
-                        <DesktopSixBadge className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                        <DesktopSixBadge props={resto_details}
+                        className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
                       </div>
                     </div>
                   </div>
@@ -115,7 +153,7 @@ const DesktopFivePage = () => {
                           className="text-gray-600 text-sm w-auto"
                           size="txtInterRegular14"
                         >
-                          2 Adults
+                          {reservation_details.guests_size} Adults
                         </Text>
                       </div>
                       <div className="flex flex-row gap-2 items-center justify-start w-auto">
@@ -128,7 +166,8 @@ const DesktopFivePage = () => {
                           className="text-gray-600 text-sm w-auto"
                           size="txtInterRegular14"
                         >
-                          Saturday, August 26 • 4:00 PM
+                          
+                          {dateString} {time_slot} {ampm}
                         </Text>
                       </div>
                     </div>

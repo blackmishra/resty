@@ -19,8 +19,7 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopOneTime from "components/DesktopOneTime";
 
 const DesktopSixPage = () => {
-  const notify = () => toast("Wow so easy!");
-  const base_url = "http://127.0.0.1:8000/"
+  const base_url = process.env.REACT_APP_BASE_URL
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,11 +55,10 @@ const DesktopSixPage = () => {
     let path = `/desktopseven`;
           setTimeout(() => {
             navigate(path, { replace: true, state: {} });
-          }, 3000);
+          }, 1500);
   } catch (error) {
     toast.error("Bad Request. Please try again.")
     console.error('An error occurred:', error);
-  
   }
 
   }

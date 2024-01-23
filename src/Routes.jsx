@@ -32,6 +32,7 @@ const ProjectRoutes = () => {
         <Routes>
           <Route path="/" element={<Desktop />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/home_page" element={<Home />} />
           <Route path="/desktopsixteen" element={<DesktopSixteen />} />
           <Route path="/desktop" element={<Desktop />} />
           <Route path="/desktopsix" element={<DesktopSix />} />
