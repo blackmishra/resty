@@ -4,28 +4,33 @@ import "./SearchBar.css"
 
 export const SearchBar = ({setSearchr}) => {
     const [searchi, setSearchi] = useState("")
+    const base_url = process.env.REACT_APP_BASE_URL
+    const search_url = base_url + 'search'
+
     const fetchData = (value) => {
-        fetch("http://127.0.0.1:8000/home")
+        fetch(search_url)
             .then((response) => response.json())
             .then((json) => {
-                // console.log(json)
+                console.log('Data received', json)
                 console.log(typeof(json));
 
                 const results = json.filter((item) => {
+                    console.log(item);
+
                     return(
                         value&&
                         item && 
-                        item.rest_name &&
-                        item.rest_name.toLowerCase()
+                        item.name &&
+                        item.name.toLowerCase()
                         .includes(value.toLowerCase()))
                 })
-                console.log(results)
+                console.log('Results are:', results)
 
                 setSearchr(results)
             });
     }
     const handleChange = (value) => {
-        // console.log(value)
+        console.log(value)
         setSearchi(value)
         fetchData(value)
     }

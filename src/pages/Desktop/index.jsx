@@ -17,7 +17,8 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 function RestData() {
   const [restData, setRestData] = useState('')
   // const url = 'https://resybot-22sv.onrender.com/search'
-  const url = 'http://localhost:8000/home'
+  const base_url = process.env.REACT_APP_BASE_URL
+  const search_url = base_url + 'search'
 
   useEffect(() => {
     getAllRest();
@@ -26,7 +27,7 @@ function RestData() {
   const getAllRest = () => {
     axios({
       method: 'GET',
-      url: url,
+      url: search_url,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -51,7 +52,7 @@ const Desktop = () => {
 
   const fetchData = () => {
     axios
-      .get('https://resybot-22sv.onrender.com/')
+      .get(base_url)
       .then((response) => {
         const { data } = response;
         if (response.status === 200) {

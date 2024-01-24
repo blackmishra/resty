@@ -20,7 +20,8 @@ import DesktopOneTime from "components/DesktopOneTime";
 
 const DesktopSixPage = () => {
   const notify = () => toast("Wow so easy!");
-  const base_url = "http://127.0.0.1:8000/"
+  const base_url = process.env.REACT_APP_BASE_URL
+
 
   const navigate = useNavigate();
   const location = useLocation();

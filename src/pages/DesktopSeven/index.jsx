@@ -15,8 +15,44 @@ import Cookies from 'js-cookie';
 
 
 const DesktopSevenPage = () => {
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
   const navigate = useNavigate();
+  var user_email = 'user@example.com';
+  var [user_exists, setUser_exists] = useState(false)
+
+
   const base_url = process.env.REACT_APP_BASE_URL
+  if (isAuthenticated){
+    user_email = user.email
+    fetch(base_url + "fetch_user", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"user_email": user_email})
+
+    })
+    .then(response => {
+      if (response.status==200){
+        setUser_exists(true)
+      }
+      
+    })
+  }
+  const add_user_to_db=(req, res) => {
+    fetch(base_url + "add_user", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"user_email": user_email})
+
+    })
+  }
+  // console.log(user.email)
+  console.log('User email: ',user_email)
 
   const makeRequest = (req, res) => {
     console.log("Printing from Makerequest");
@@ -26,15 +62,16 @@ const DesktopSevenPage = () => {
       rest_id: Cookies.get('rest_id'),
       reservation_date: Cookies.get('reservation_date'),
       time_slot: Cookies.get('time_slot'),
-      guests_size: Cookies.get('guests_size')
+      guests_size: Cookies.get('guests_size'),
+      user_email: user_email
       // rest_name: 'Saint Tuesday',
       // rest_id: '60484',
       // reservation_date: '2024-01-11T13:38:14.165Z',
       // time_slot: '10:00',
       // guests_size: '2'
+      // user_email: 'abc@email.com'
 
     }
-
     fetch(base_url + "booking_request", {
       method: 'POST',
       headers: {
@@ -60,7 +97,6 @@ const DesktopSevenPage = () => {
     })
       
   }
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -73,12 +109,15 @@ const DesktopSevenPage = () => {
     });
 
   return (
+
     <>
+    
       <div className="bg-white-A700 flex flex-col font-copperplate items-center justify-start mx-auto w-full">
         <div className="flex flex-col items-end justify-start w-full">
           <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-auto p-2.5 w-full" />
           <div className="flex md:flex-col flex-row font-inter md:gap-10 items-start justify-between max-w-[1236px] mx-auto md:px-5 w-full">
             <div className="flex flex-col md:gap-10 gap-[105px] items-start justify-start md:mt-0 mt-[54px]">
+            <ToastContainer />
 
               {!isAuthenticated && (
                 <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
@@ -122,17 +161,16 @@ const DesktopSevenPage = () => {
 
                 </div>
               )}
-              {isAuthenticated && (
+              {(isAuthenticated && user_exists===true) && (
+               
                 <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
                   <Text
                     className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
                     size="txtInterExtraBold30"
                   >
-                    Already Logged in!
-
+                    Your Resty account details are found!
                   </Text>
-                  <ToastContainer />
-
+                  
                   Click below to compete your booking
                   <Button
                     className="cursor-pointer font-medium text-base text-center w-full"
@@ -145,7 +183,33 @@ const DesktopSevenPage = () => {
                     Continue
                   </Button>
                 </div>
+                
               )}
+              {(isAuthenticated && user_exists===false) && (
+               
+               <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
+                 <Text
+                   className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
+                   size="txtInterExtraBold30"
+                 >
+                   Could not find your Resty account details!
+                 </Text>
+                 
+                 Click below to compete your booking
+                 <Button
+                   className="cursor-pointer font-medium text-base text-center w-full"
+                   shape="round"
+                   color="red_400"
+                   size="sm"
+                   variant="fill"
+                   onClick={makeRequest}
+                 >
+                   Continue
+                 </Button>
+               </div>
+               
+             )}
+
             </div>
             <Img
               className="h-[946px] md:h-auto object-cover"
