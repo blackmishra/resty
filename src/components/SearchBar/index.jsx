@@ -11,11 +11,10 @@ export const SearchBar = ({setSearchr}) => {
         fetch(search_url)
             .then((response) => response.json())
             .then((json) => {
-                console.log('Data received', json)
-                console.log(typeof(json));
+                // console.log('Data received', json)
+                // console.log(typeof(json));
 
                 const results = json.filter((item) => {
-                    console.log(item);
 
                     return(
                         value&&
