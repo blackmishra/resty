@@ -1,27 +1,22 @@
 import React from "react";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import { Img, Text } from "components";
 
 const DesktopSixteenColumnrectanglethirtyone = (props) => {
-//   const handleChange = (value) => {
-//     console.log(`You clicked on ${search.rest_id}`)
-//     // console.log(rest_details)
-//     const venue_id = search.rest_id
-//     let path = `/desktopsix`; 
-//     // fetchData();
-//     navigate(path, {replace:true, state:{venue_id}});
-// }
-//   return (
-//     <div 
-//     className='search-results-elem'
-//     onClick={handleChange}
-//     >
-//       {search.name}
-//     </div>
-//   )
+  const navigate = useNavigate(); 
+
+  const handleChange = (value) => {
+    console.log(`You clicked on ${props.rest_id}`)
+    // console.log(rest_details)
+    const venue_id = props.rest_id
+    let path = `/desktopsix`; 
+    // fetchData();
+    navigate(path, {replace:true, state:{venue_id}});
+  }
+
   return (
     <>
-      <div className={props.className}>
+      <div className={props.className} onClick={handleChange}>
         <div className="relative w-[230px]">
           <Img
             className="h-[230px] m-auto object-cover rounded-lg w-[230px]"
