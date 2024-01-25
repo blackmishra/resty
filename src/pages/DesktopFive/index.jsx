@@ -55,7 +55,7 @@ const DesktopFivePage = ({ route, navigation }) => {
             alt="imageTwo"
           />
           <div className="absolute bg-blue_gray-100 flex flex-col md:gap-10 gap-[120px] h-full inset-[0] items-center justify-center m-auto pb-[325px] w-full">
-            <div className="border-b border-blue_gray-100_01 border-solid flex flex-col h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full">
+            {/* <div className="border-b border-blue_gray-100_01 border-solid flex flex-col h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full">
               <div className="flex flex-row md:gap-10 items-start justify-between max-w-[1128px] w-full">
                 <div className="flex flex-col items-start justify-start">
                   <Text
@@ -74,7 +74,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                   </Text>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-col font-inter gap-14 items-center justify-start w-auto sm:w-full">
               <div className="flex flex-col gap-6 items-center justify-start w-[69%] md:w-full">
                 <div className="bg-white-A700 flex flex-col h-20 items-center justify-start p-6 sm:px-5 rounded-[50%] shadow-bs w-20">
@@ -176,7 +176,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                 <div className="flex flex-col gap-4 items-start justify-start w-full">
                   <Button
                     className="common-pointer cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktopeleven")}
+                    onClick={() => navigate("/desktop")}
                     shape="round"
                     color="red_400"
                     size="sm"
@@ -186,7 +186,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                   </Button>
                   <Button
                     className="common-pointer border border-blue_gray-100_01 border-solid cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktopsixteen")}
+                    onClick={() => navigate("/desktop")}
                     shape="round"
                     color="white_A700"
                     size="sm"
