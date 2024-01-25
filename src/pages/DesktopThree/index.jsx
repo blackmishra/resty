@@ -157,7 +157,7 @@ const DesktopThreePage = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
+            {/* <div className="flex flex-col gap-4 items-start justify-start w-[552px] sm:w-full">
               <div className="flex flex-row gap-4 items-start justify-between w-full">
                 <Text
                   className="text-gray-600 text-sm w-auto"
@@ -469,7 +469,7 @@ const DesktopThreePage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
