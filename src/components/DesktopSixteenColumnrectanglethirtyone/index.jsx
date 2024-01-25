@@ -3,6 +3,22 @@ import React from "react";
 import { Img, Text } from "components";
 
 const DesktopSixteenColumnrectanglethirtyone = (props) => {
+//   const handleChange = (value) => {
+//     console.log(`You clicked on ${search.rest_id}`)
+//     // console.log(rest_details)
+//     const venue_id = search.rest_id
+//     let path = `/desktopsix`; 
+//     // fetchData();
+//     navigate(path, {replace:true, state:{venue_id}});
+// }
+//   return (
+//     <div 
+//     className='search-results-elem'
+//     onClick={handleChange}
+//     >
+//       {search.name}
+//     </div>
+//   )
   return (
     <>
       <div className={props.className}>
