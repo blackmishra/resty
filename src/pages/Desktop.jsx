@@ -18,7 +18,7 @@ function RestData() {
   const [restData, setRestData] = useState('')
 
   const base_url = process.env.REACT_APP_BASE_URL
-  const search_url = base_url + 'search'
+  const search_url = base_url + 'home'
 
   useEffect(() => {
     getAllRest();
@@ -50,7 +50,7 @@ const Desktop = () => {
   const [searchvalue, setSearchvalue] = useState([] | null);
   const [optionList, setOptionList] = useState([] | null);
   const base_url = process.env.REACT_APP_BASE_URL
-  const search_url = base_url + 'search'
+  const search_url = base_url + 'home'
   
   const fetchData = () => {
     axios

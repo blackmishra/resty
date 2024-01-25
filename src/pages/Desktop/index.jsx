@@ -18,7 +18,7 @@ function RestData() {
   const [restData, setRestData] = useState('')
   // const url = 'https://resybot-22sv.onrender.com/search'
   const base_url = process.env.REACT_APP_BASE_URL
-  const search_url = base_url + 'search'
+  const search_url = base_url + 'home'
 
   useEffect(() => {
     getAllRest();

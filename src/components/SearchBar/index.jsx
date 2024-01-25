@@ -5,7 +5,7 @@ import "./SearchBar.css"
 export const SearchBar = ({setSearchr}) => {
     const [searchi, setSearchi] = useState("")
     const base_url = process.env.REACT_APP_BASE_URL
-    const search_url = base_url + 'search'
+    const search_url = base_url + 'home'
 
     const fetchData = (value) => {
         fetch(search_url)
@@ -19,8 +19,8 @@ export const SearchBar = ({setSearchr}) => {
                     return(
                         value&&
                         item && 
-                        item.name &&
-                        item.name.toLowerCase()
+                        item.rest_name &&
+                        item.rest_name.toLowerCase()
                         .includes(value.toLowerCase()))
                 })
                 console.log('Results are:', results)
