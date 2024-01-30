@@ -10,9 +10,12 @@ const DesktopFivePage = ({ route, navigation }) => {
   const location = useLocation();
   const base_url = process.env.REACT_APP_BASE_URL
   const [resto_details, setRest_details] = useState("")
+  const [img_src, setImgSRC] = useState("")
+
   const bookingID  = location.state.booking_details
   const reservation_details  = location.state.reservation_details
   console.log(reservation_details)
+
   const url = base_url + "find/" + reservation_details.rest_id
   var dateString = new Date(reservation_details.reservation_date).toUTCString();
   dateString = dateString.split(' ').slice(0, 4).join(' ');
@@ -35,12 +38,16 @@ const DesktopFivePage = ({ route, navigation }) => {
       .then((response) => response.json())
       .then((json) => {
         setRest_details(json)
+        setImgSRC(json['images_list'][0])
+        console.log('Details found in Fetch Data function', json)
+        console.log('Img SRC', json['images_list'][0])
+
       })
   }
 
   useEffect(() => {
-    fetchData();
     console.log("Fetching")
+    fetchData();
     console.log(resto_details)
     console.log("Data Fetching")
   }, []);
@@ -55,26 +62,7 @@ const DesktopFivePage = ({ route, navigation }) => {
             alt="imageTwo"
           />
           <div className="absolute bg-blue_gray-100 flex flex-col md:gap-10 gap-[120px] h-full inset-[0] items-center justify-center m-auto pb-[325px] w-full">
-            {/* <div className="border-b border-blue_gray-100_01 border-solid flex flex-col h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full">
-              <div className="flex flex-row md:gap-10 items-start justify-between max-w-[1128px] w-full">
-                <div className="flex flex-col items-start justify-start">
-                  <Text
-                    className="md:text-2xl sm:text-[22px] text-[26px] text-gray-900 tracking-[-0.52px]"
-                    size="txtCopperplate26"
-                  >
-                    RESTY
-                  </Text>
-                </div>
-                <div className="flex flex-col font-inter items-end justify-start md:pl-10 sm:pl-5 pl-[49px]">
-                  <Text
-                    className="bg-gray-900 flex h-8 items-center justify-center rounded-[50%] text-center text-white-A700 text-xs w-8"
-                    size="txtInterMedium12"
-                  >
-                    EA
-                  </Text>
-                </div>
-              </div>
-            </div> */}
+
             <div className="flex flex-col font-inter gap-14 items-center justify-start w-auto sm:w-full">
               <div className="flex flex-col gap-6 items-center justify-start w-[69%] md:w-full">
                 <div className="bg-white-A700 flex flex-col h-20 items-center justify-start p-6 sm:px-5 rounded-[50%] shadow-bs w-20">
@@ -118,7 +106,8 @@ const DesktopFivePage = ({ route, navigation }) => {
                     <div className="flex flex-row gap-[18px] items-center justify-start w-[56%]">
                       <Img
                         className="h-[90px] md:h-auto object-cover rounded-lg w-[90px]"
-                        src="images/img_rectangle31.png"
+                        src={img_src}
+                        // src='#'
                         alt="rectangleThirty"
                       />
                       <div className="flex flex-col gap-[22px] items-start justify-start w-[54%]">
@@ -127,7 +116,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                             className="text-base text-gray-900 w-auto"
                             size="txtInterMedium16"
                           >
-                            {resto_details.name}, {resto_details.venue_id}
+                            {resto_details.name}
                           </Text>
                           <Text
                             className="text-gray-600 text-sm w-auto"

@@ -94,7 +94,8 @@ const DesktopSixPage = () => {
               />
             }
           >
-            <div className="text-base text-gray-900 text-left">Back</div>
+            {/* <div className="text-base text-gray-900 text-left">Back</div> */}
+            
             <ToastContainer />
           </Button>
           <div className="flex md:flex-col flex-row gap-14 items-start justify-start max-w-[1032px] w-full">
@@ -115,8 +116,7 @@ const DesktopSixPage = () => {
                   </Text>
                 </div>
 
-                <DesktopSixBadge props={resto_details}
-                  className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                <DesktopSixBadge props={resto_details}/>
               </div>
               <div className="flex flex-col gap-6 items-start justify-start w-[520px] sm:w-full">
                 <div className="flex flex-col items-center justify-start w-full">

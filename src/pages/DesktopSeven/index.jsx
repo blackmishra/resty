@@ -19,7 +19,7 @@ const DesktopSevenPage = () => {
   const navigate = useNavigate();
   var user_email = 'user@example.com';
   var [user_exists, setUser_exists] = useState(false)
-
+  const [resto_details, setRest_details] = useState("")
 
   const base_url = process.env.REACT_APP_BASE_URL
   if (isAuthenticated){
@@ -40,6 +40,17 @@ const DesktopSevenPage = () => {
       
     })
   }
+  const url = base_url + "find/" + Cookies.get('rest_id')
+  const fetchData = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log('Printing from Desktop Seven')
+        setRest_details(json)
+        console.log('Details found in Fetch Data function', json)
+      })
+  }
+
   const add_user_to_db=(req, res) => {
     fetch(base_url + "add_user", {
       method: 'POST',
@@ -72,6 +83,7 @@ const DesktopSevenPage = () => {
       // user_email: 'abc@email.com'
 
     }
+    fetchData()
     fetch(base_url + "booking_request", {
       method: 'POST',
       headers: {
@@ -88,7 +100,7 @@ const DesktopSevenPage = () => {
         toast.success("Reservation request added!")
         let path = `/desktopfive`;
         setTimeout(() => {
-          navigate(path, { state: { booking_details: data.booking_id, reservation_details:booking_params } });
+          navigate(path, { state: { booking_details: data.booking_id, reservation_details:booking_params, restaurant_dets: resto_details} });
         }, 1500);
       }
       else {
