@@ -17,7 +17,17 @@ const DesktopFivePage = ({ route, navigation }) => {
   console.log(reservation_details)
 
   const url = base_url + "find/" + reservation_details.rest_id
-  var dateString = new Date(reservation_details.reservation_date).toUTCString();
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour:'numeric',
+    minute:'numeric'
+  };
+  options.timeZone = 'UTC';
+  options.timeZoneName = 'short';
+  var dateString = new Date(reservation_details.reservation_date).toLocaleString('en-US', options);
   dateString = dateString.split(' ').slice(0, 4).join(' ');
   console.log(dateString)
   var hh = new String(reservation_details.time_slot).split(':')[0]
@@ -103,15 +113,15 @@ const DesktopFivePage = ({ route, navigation }) => {
               <div className="flex flex-col gap-6 items-start justify-start w-auto sm:w-full">
                 <div className="bg-gray-50 border border-gray-200 border-solid flex flex-col gap-3 items-start justify-start p-4 rounded-[16px] shadow-bs w-[455px] sm:w-full">
                   <div className="flex flex-col items-start justify-start w-full">
-                    <div className="flex flex-row gap-[18px] items-center justify-start w-[56%]">
+                    <div className="flex flex-row gap-[18px] items-center justify-start">
                       <Img
-                        className="h-[90px] md:h-auto object-cover rounded-lg w-[90px]"
+                        className="h-[200px] md:h-auto object-cover rounded-lg w-[150px]"
                         src={img_src}
                         // src='#'
                         alt="rectangleThirty"
                       />
-                      <div className="flex flex-col gap-[22px] items-start justify-start w-[54%]">
-                        <div className="flex flex-col gap-1 items-start justify-start w-auto">
+                      <div className="flex flex-col gap-[22px] items-start">
+                        <div className="flex flex-col gap-1 items-start w-auto">
                           <Text
                             className="text-base text-gray-900 w-auto"
                             size="txtInterMedium16"
