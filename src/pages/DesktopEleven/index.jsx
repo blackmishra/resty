@@ -1,10 +1,12 @@
 import React from "react";
-
+import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Button, Img, List, SelectBox, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
+import Cookies from 'js-cookie';
 
 const thisMonthOptionsList = [
   { label: "Option1", value: "option1" },
@@ -12,8 +14,91 @@ const thisMonthOptionsList = [
   { label: "Option3", value: "option3" },
 ];
 
+// function RestData(user_email) {
+  
+//   const base_url = process.env.REACT_APP_BASE_URL
+//   const [restData, setRestData] = useState('')
+
+//   const search_url = base_url + 'view_bookings'
+
+//   useEffect(() => {
+//     getAllRest();
+//   }, [])
+
+  
+
+//   const getAllRest = () => {
+//     axios({
+//       method: 'POST',
+//       url: search_url,
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({"user_email": user_email})
+//     })
+//       .then((response) => {
+//         const allRestList = response.data;
+//         // console.log(allRestList);
+
+//         setRestData(allRestList)
+//       })
+//       .catch(error => console.error(`Error: $(error)`))
+//   }
+//   return (
+//     Object.values(restData)
+//   )
+// }
+
+
 const DesktopElevenPage = () => {
   const navigate = useNavigate();
+
+  const [total_num_rest, setTotalNumRest] = useState('')
+
+  const base_url = process.env.REACT_APP_BASE_URL
+  const [restData, setRestData] = useState('')
+  const search_url = base_url + 'view_bookings'
+
+  
+  useEffect(() => {
+    
+    getAllRest();
+
+  }, [])
+  
+  const getAllRest = () => {
+    console.log('Function called')
+    console.log(search_url)
+    const user_email = Cookies.get('user_email')
+    console.log('User email is: ', user_email)
+
+    fetch(search_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"user_email": user_email})
+    })
+      .then((response) => response.json())
+      .then(data => {
+        console.log('Printing response');
+        setRestData(Object.values(data))
+        console.log('Bookings data', restData.length);
+        console.log(data.length)
+        if (restData.length>0){
+          setTotalNumRest(restData.length)
+          console.log('Total number of Bookings:', restData.length);
+        }
+
+        })
+      .catch(error => console.error(`Error: $(error)`))
+  }
+  // let all_rest_list = [];
+  
+  // const allRestDetails = restData
+  // total_num_rest = 0
+  // // allRestDetails.length;
+  // all_rest_list = allRestDetails
 
   return (
     <>
@@ -39,7 +124,7 @@ const DesktopElevenPage = () => {
               className="text-base text-gray-900 w-auto"
               size="txtInterRegular16"
             >
-              Rezervations
+              Reservations
             </Text>
           </div>
         </div>
@@ -50,9 +135,9 @@ const DesktopElevenPage = () => {
                 className="text-gray-600 text-sm w-auto"
                 size="txtInterMedium14Gray600"
               >
-                6 Reservation
+                {total_num_rest} Reservation(s)
               </Text>
-              <SelectBox
+              {/* <SelectBox
                 className="sm:flex-1 font-medium text-gray-600 text-left text-sm w-[19%] sm:w-full"
                 placeholderClassName="text-gray-600"
                 indicator={
@@ -67,7 +152,7 @@ const DesktopElevenPage = () => {
                 options={thisMonthOptionsList}
                 isSearchable={false}
                 placeholder="This Month"
-              />
+              /> */}
             </div>
             <List
               className="flex flex-col gap-6 items-start w-auto"

@@ -1,7 +1,10 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useState, useEffect } from 'react'
 import { Button, Img, Text } from "components";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 import {
     Collapse,
     Container,
@@ -21,7 +24,12 @@ import {
 const Profile = (props) => {
     const navigate = useNavigate();
     const { user, isAuthenticated, isLoading, loginWithRedirect,logout } = useAuth0();
+    const [user_email, setUserEmail] = useState('')
 
+    if (isAuthenticated){
+        // user_email = user.email
+        Cookies.set('user_email', user.email, { path: '/' });
+      }
     if (isLoading) {
         return <div>Loading ...</div>;
     }

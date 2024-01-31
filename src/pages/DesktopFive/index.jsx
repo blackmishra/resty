@@ -182,7 +182,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                 <div className="flex flex-col gap-4 items-start justify-start w-full">
                   <Button
                     className="common-pointer cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktop")}
+                    onClick={() => navigate("/desktopeleven", { state: {}})}
                     shape="round"
                     color="red_400"
                     size="sm"
