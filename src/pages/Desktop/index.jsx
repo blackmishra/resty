@@ -7,7 +7,8 @@ import { SearchResultsList } from "components/SearchResultsList";
 
 import { Button, Img, Input, Text } from "components";
 import { RestaurantGridList } from "components/RestaurantGridList";
-
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import DesktopSixteenColumnrectanglethirtyone from "components/DesktopSixteenColumnrectanglethirtyone";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
@@ -151,6 +152,7 @@ const Desktop = () => {
               >
                 {total_num_rest} Restaurants Found
               </Text>
+
             </div>
             <div className="flex flex-col items-start justify-start w-full">
               <div className="md:gap-5 gap-[37px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">

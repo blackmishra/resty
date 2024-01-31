@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Img, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
+import Cookies from 'js-cookie';
 
 const DesktopFivePage = ({ route, navigation }) => {
   const navigate = useNavigate();
@@ -60,6 +61,12 @@ const DesktopFivePage = ({ route, navigation }) => {
     fetchData();
     console.log(resto_details)
     console.log("Data Fetching")
+    Cookies.remove('rest_name')
+    Cookies.remove('rest_id')
+    Cookies.remove('reservation_date')
+    Cookies.remove('time_slot')
+    Cookies.remove('guests_size')
+
   }, []);
 
   return (

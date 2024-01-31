@@ -1,13 +1,20 @@
 import React from "react";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate, useLocation } from "react-router-dom";
 import Select, { components } from "react-select"
 import { SearchBar } from "components/SearchBar";
+import Alert from "components/Alert";
+
 import { SearchResultsList } from "components/SearchResultsList";
 
 import { Button, Img, Input, Text } from "components";
 import { RestaurantGridList } from "components/RestaurantGridList";
+import Popup from 'reactjs-popup';
+import { ToastContainer, toast } from 'react-toastify';
 
+import 'reactjs-popup/dist/index.css';
+import Cookies from 'js-cookie';
 
 import DesktopSixteenColumnrectanglethirtyone from "components/DesktopSixteenColumnrectanglethirtyone";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
@@ -15,12 +22,13 @@ import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 
 // import Select from "react-select/dist/declarations/src/Select";
 function RestData() {
-  const [restData, setRestData] = useState('')
-
+  const navigate = useNavigate();
   const base_url = process.env.REACT_APP_BASE_URL
+  const [restData, setRestData] = useState('')
   const search_url = base_url + 'home'
 
   useEffect(() => {
+    
     getAllRest();
   }, [])
 
@@ -47,6 +55,8 @@ function RestData() {
 
 
 const Desktop = () => {
+  const navigate = useNavigate();
+
   const [searchvalue, setSearchvalue] = useState([] | null);
   const [optionList, setOptionList] = useState([] | null);
   const base_url = process.env.REACT_APP_BASE_URL
@@ -74,6 +84,28 @@ const Desktop = () => {
     arr.push({ value: optionList[i].rest_id, label: optionList[i].rest_name });
   }
   useEffect(() => {
+    try{
+      let path = `/desktopseven`;
+      if (Cookies.get('reservation_date')){
+        console.log('Printing from Desktop')
+        console.log(Cookies.get('rest_name'));
+        console.log(Cookies.get('rest_id'));
+        console.log(Cookies.get('reservation_date'));
+        console.log(Cookies.get('time_slot'));
+        console.log(Cookies.get('guests_size'));
+        toast.info("Incomplete booking found. Navigating to Booking page now.!")
+        setTimeout(() => {
+          navigate(path, { replace: true, state: {} });
+        }, 1500);
+      }
+      else{
+        console.log('Cookies not found');
+      }
+    }
+    catch (error) {
+      toast.error("Bad Request. Please try again.")
+      console.error('An error occurred:', error);
+    }
     fetchData();
   }, [])
   // console.log(arr);
@@ -153,6 +185,8 @@ const Desktop = () => {
               >
                 {total_num_rest} Restaurants Found
               </Text>
+              {/* <Alert  /> */}
+             
             </div>
             <div className="flex flex-col items-start justify-start w-full">
               <div className="md:gap-5 gap-[37px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">
