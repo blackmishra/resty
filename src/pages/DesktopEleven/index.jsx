@@ -51,7 +51,7 @@ const DesktopElevenPage = () => {
     getAllRest()
   }, [])
 
-  console.log('Total number of outside Bookings: ', restData.length)
+  console.log('Total number of outside Bookings: ', restData)
   
 
   return (

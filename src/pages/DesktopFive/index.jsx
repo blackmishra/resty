@@ -13,8 +13,8 @@ const DesktopFivePage = ({ route, navigation }) => {
   const [resto_details, setRest_details] = useState("")
   const [img_src, setImgSRC] = useState("")
 
-  const bookingID  = location.state.booking_details
-  const reservation_details  = location.state.reservation_details
+  const bookingID = location.state.booking_details
+  const reservation_details = location.state.reservation_details
   console.log(reservation_details)
 
   const url = base_url + "find/" + reservation_details.rest_id
@@ -23,8 +23,8 @@ const DesktopFivePage = ({ route, navigation }) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour:'numeric',
-    minute:'numeric'
+    hour: 'numeric',
+    minute: 'numeric'
   };
   options.timeZone = 'UTC';
   options.timeZoneName = 'short';
@@ -36,9 +36,9 @@ const DesktopFivePage = ({ route, navigation }) => {
 
   var time_slot = ''
   var ampm = 'AM'
-  if (Number(hh)>12){
+  if (Number(hh) > 12) {
     hh = Number(hh) - 12
-    ampm='PM'
+    ampm = 'PM'
     time_slot = hh + ':' + mm
     console.log(time_slot)
 
@@ -122,7 +122,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                   <div className="flex flex-col items-start justify-start w-full">
                     <div className="flex flex-row gap-[18px] items-center justify-start">
                       <Img
-                        className="h-[200px] md:h-auto object-cover rounded-lg w-[150px]"
+                        className="h-auto md:h-auto object-cover rounded-lg w-[100px]"
                         src={img_src}
                         // src='#'
                         alt="rectangleThirty"
@@ -143,12 +143,26 @@ const DesktopFivePage = ({ route, navigation }) => {
                           </Text>
                         </div>
                         <DesktopSixBadge props={resto_details}
-                        className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                          className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
                       </div>
                     </div>
                   </div>
                   <div className="bg-white-A700 flex flex-col items-start justify-start p-2 rounded-[10px] shadow-bs w-full">
                     <div className="flex flex-col gap-2 items-start justify-start w-auto">
+
+                      <div className="flex flex-row gap-2 items-center justify-start w-auto">
+                        <Img
+                          className="h-4 w-4"
+                          src="images/img_users_blue_gray_100_01.svg"
+                          alt="users"
+                        />
+                        <Text
+                          className="text-gray-600 text-sm w-auto"
+                          size="txtInterRegular14"
+                        >
+                          Booking ID: {bookingID}
+                        </Text>
+                      </div>
                       <div className="flex flex-row gap-2 items-center justify-start w-auto">
                         <Img
                           className="h-4 w-4"
@@ -172,7 +186,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                           className="text-gray-600 text-sm w-auto"
                           size="txtInterRegular14"
                         >
-                          
+
                           {dateString} {time_slot} {ampm}
                         </Text>
                       </div>
@@ -182,7 +196,7 @@ const DesktopFivePage = ({ route, navigation }) => {
                 <div className="flex flex-col gap-4 items-start justify-start w-full">
                   <Button
                     className="common-pointer cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktopeleven", { state: {}})}
+                    onClick={() => navigate("/desktopeleven", { state: {} })}
                     shape="round"
                     color="red_400"
                     size="sm"

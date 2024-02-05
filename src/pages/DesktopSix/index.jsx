@@ -28,6 +28,9 @@ const DesktopSixPage = () => {
   const [bookingDate, setbookingDate] = useState(new Date());
   const [from_time, setFromTime] = useState('10:00');
   const [num_guests, setNumGuests] = useState(2);
+  const [rating, setRating] = useState(4.5);
+  const [base_img_url, setBaseImageURL] = useState('');
+
 
 
   const res_id = location.state.venue_id
@@ -44,12 +47,17 @@ const DesktopSixPage = () => {
     Cookies.set('time_slot', from_time, { path: '/' });
     Cookies.set('guests_size', num_guests, { path: '/' });
     Cookies.set('rest_details_ck', resto_details, { path: '/' });
+    Cookies.set('rating',resto_details.rating, { path: '/' }),
+    Cookies.set('base_img_url',resto_details['images_list'][0], { path: '/' })
 
     console.log(Cookies.get('rest_name'));
     console.log(Cookies.get('rest_id'));
     console.log(Cookies.get('reservation_date'));
     console.log(Cookies.get('time_slot'));
     console.log(Cookies.get('guests_size'));
+    console.log(Cookies.get('rating'));
+    console.log(Cookies.get('base_img_url'));
+
 
     toast.success("Data Saved!")
     let path = `/desktopseven`;
@@ -68,6 +76,8 @@ const DesktopSixPage = () => {
       .then((response) => response.json())
       .then((json) => {
         setRest_details(json)
+        console.log(json)
+        // setBaseImageURL
       })
   }
 

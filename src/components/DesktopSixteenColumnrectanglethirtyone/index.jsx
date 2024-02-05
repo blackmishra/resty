@@ -16,7 +16,7 @@ const DesktopSixteenColumnrectanglethirtyone = (props) => {
 
   return (
     <>
-      <div className={props.className} onClick={handleChange}>
+      <div onClick={handleChange}>
         <div className="relative w-[230px]">
           <Img
             className="h-[230px] m-auto object-cover rounded-lg w-[230px]"

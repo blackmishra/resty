@@ -71,9 +71,13 @@ const DesktopSevenPage = () => {
     const booking_params = {
       rest_name: Cookies.get('rest_name'),
       rest_id: Cookies.get('rest_id'),
+      rating: Cookies.get('rating'),
+      base_img_url: Cookies.get('base_img_url'),
+
       reservation_date: Cookies.get('reservation_date'),
       time_slot: Cookies.get('time_slot'),
       guests_size: Cookies.get('guests_size'),
+
       user_email: user_email
       // rest_name: 'Saint Tuesday',
       // rest_id: '60484',
