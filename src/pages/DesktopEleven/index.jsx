@@ -39,14 +39,9 @@ const DesktopElevenPage = () => {
     })
       .then((response) => response.json())
       .then(data => {
-        console.log('Printing response');
         setRestData(Object.values(data))
-
-        if (restData.length > 0) {
-          console.log('Total number of Bookings:', restData.length);
-          setTotalNumRest(restData.length);
-          console.log('Data Received:', restData)
-        }
+        console.log(Object.values(data).length);
+        setTotalNumRest(Object.values(data).length);
 
       })
       .catch(error => console.error(`Error: $(error)`))
@@ -54,10 +49,10 @@ const DesktopElevenPage = () => {
 
   useEffect(() => {
     getAllRest()
-
   }, [])
 
-  console.log('Total number of Bookings: ', restData.length)
+  console.log('Total number of outside Bookings: ', restData.length)
+  
 
   return (
     <>
@@ -65,7 +60,7 @@ const DesktopElevenPage = () => {
         <div className="flex flex-col items-center w-full">
           <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
         </div>
-        <div className="flex flex-col font-inter items-start justify-start md:ml-[0] ml-[204px] mt-[54px] md:px-5 w-auto">
+        {/* <div className="flex flex-col font-inter items-start justify-start md:ml-[0] ml-[204px] mt-[54px] md:px-5 w-auto">
           <div className="flex flex-row gap-3 items-center justify-start w-auto">
             <Text
               className="common-pointer text-base text-gray-900 w-auto"
@@ -86,7 +81,7 @@ const DesktopElevenPage = () => {
               Reservations
             </Text>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col font-inter items-center mt-[93px] md:px-10 sm:px-5 px-[441px] w-full">
           <div className="flex flex-col gap-6 items-start justify-start w-auto sm:w-full">
             <div className="flex flex-row gap-4 items-start justify-between w-full">
@@ -118,7 +113,7 @@ const DesktopElevenPage = () => {
               orientation="vertical"
             >
               {/* <ListBookings /> */}
-              {restData.map(
+              {restData.length>0 && restData.map(
                 (props, index) => (
                   <React.Fragment
                     key={`ListBookings${index}`}
