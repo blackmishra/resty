@@ -21,8 +21,10 @@ const DesktopSevenPage = () => {
   var [user_exists, setUser_exists] = useState(false)
   const [resto_details, setRest_details] = useState("")
 
+
+
   const base_url = process.env.REACT_APP_BASE_URL
-  if (isAuthenticated){
+  if (isAuthenticated) {
     user_email = user.email
     fetch(base_url + "fetch_user", {
       method: 'POST',
@@ -30,15 +32,15 @@ const DesktopSevenPage = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"user_email": user_email})
+      body: JSON.stringify({ "user_email": user_email })
 
     })
-    .then(response => {
-      if (response.status==200){
-        setUser_exists(true)
-      }
-      
-    })
+      .then(response => {
+        if (response.status == 200) {
+          setUser_exists(true)
+        }
+
+      })
   }
   const url = base_url + "find/" + Cookies.get('rest_id')
   const fetchData = () => {
@@ -51,19 +53,9 @@ const DesktopSevenPage = () => {
       })
   }
 
-  const add_user_to_db=(req, res) => {
-    fetch(base_url + "add_user", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({"user_email": user_email})
-
-    })
-  }
+  
   // console.log(user.email)
-  console.log('User email: ',user_email)
+  console.log('User email: ', user_email)
 
   const makeRequest = (req, res) => {
     console.log("Printing from Makerequest");
@@ -97,21 +89,21 @@ const DesktopSevenPage = () => {
       body: JSON.stringify(booking_params)
 
     })
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
 
-      if (data.booking_id) {
-        toast.success("Reservation request added!")
-        let path = `/desktopfive`;
-        setTimeout(() => {
-          navigate(path, { state: { booking_details: data.booking_id, reservation_details:booking_params, restaurant_dets: resto_details} });
-        }, 1500);
-      }
-      else {
-        toast.error("Bad Request. Please try again.")
-      }
-    })
-      
+        if (data.booking_id) {
+          toast.success("Reservation request added!")
+          let path = `/desktopfive`;
+          setTimeout(() => {
+            navigate(path, { state: { booking_details: data.booking_id, reservation_details: booking_params, restaurant_dets: resto_details } });
+          }, 1500);
+        }
+        else {
+          toast.error("Bad Request. Please try again.")
+        }
+      })
+
   }
 
   if (isLoading) {
@@ -127,13 +119,13 @@ const DesktopSevenPage = () => {
   return (
 
     <>
-    
+
       <div className="bg-white-A700 flex flex-col font-copperplate items-center justify-start mx-auto w-full">
         <div className="flex flex-col items-end justify-start w-full">
           <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-auto p-2.5 w-full" />
           <div className="flex md:flex-col flex-row font-inter md:gap-10 items-start justify-between max-w-[1236px] mx-auto md:px-5 w-full">
             <div className="flex flex-col md:gap-10 gap-[105px] items-start justify-start md:mt-0 mt-[54px]">
-            <ToastContainer />
+              <ToastContainer />
 
               {!isAuthenticated && (
                 <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
@@ -177,8 +169,8 @@ const DesktopSevenPage = () => {
 
                 </div>
               )}
-              {(isAuthenticated && user_exists===true) && (
-               
+              {(isAuthenticated && user_exists === true) && (
+
                 <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
                   <Text
                     className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
@@ -186,7 +178,7 @@ const DesktopSevenPage = () => {
                   >
                     Your Resty account details are found!
                   </Text>
-                  
+
                   Click below to compete your booking
                   <Button
                     className="cursor-pointer font-medium text-base text-center w-full"
@@ -199,32 +191,21 @@ const DesktopSevenPage = () => {
                     Continue
                   </Button>
                 </div>
-                
+
               )}
-              {(isAuthenticated && user_exists===false) && (
-               
-               <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
-                 <Text
-                   className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
-                   size="txtInterExtraBold30"
-                 >
-                   Could not find your Resty account details!
-                 </Text>
-                 
-                 Click below to compete your booking
-                 <Button
-                   className="cursor-pointer font-medium text-base text-center w-full"
-                   shape="round"
-                   color="red_400"
-                   size="sm"
-                   variant="fill"
-                   onClick={makeRequest}
-                 >
-                   Continue
-                 </Button>
-               </div>
-               
-             )}
+              {(isAuthenticated && user_exists === false) && (
+
+                <div className="flex flex-col gap-[42px] items-start justify-start w-auto">
+                  <Text
+                    className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
+                    size="txtInterExtraBold30"
+                  >
+                    Could not find your Resty account details!
+                  </Text>
+
+                </div>
+
+              )}
 
             </div>
             <Img

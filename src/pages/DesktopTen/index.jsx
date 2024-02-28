@@ -1,13 +1,50 @@
 import React from "react";
-
+import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from 'react'
 import { Button, Img, Input, Text } from "components";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopTwelveColumn from "components/DesktopTwelveColumn";
+import { ToastContainer, toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+
 
 const DesktopTenPage = () => {
   const navigate = useNavigate();
+  const base_url = process.env.REACT_APP_BASE_URL
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const user_email = user.email
+  const [resy_email, setResyEmail] = useState("")
+  const [resy_pwd, setResyPwd] = useState("")
+  const [user_name, setUserName] = useState("")
+
+  const add_user_to_db = (req, res) => {
+    console.log('Adding user')
+    console.log(resy_email, resy_pwd, user_name, user_email)
+    const user_det_params = {
+      "resy_email": resy_email,
+      "resy_pwd": resy_pwd,
+      "user_name": user_name,
+      "user_email": user.email,
+    }
+    fetch(base_url + "add_user", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user_det_params)
+
+    })
+    .then(response => {
+      if (response.status == 201) {
+        toast.success("RESY Account details added!")
+        navigate("/desktopseven")
+        
+      }
+
+    })
+  }
 
   return (
     <>
@@ -16,6 +53,8 @@ const DesktopTenPage = () => {
           <DesktopSixteenHeader className="border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
           <div className="flex md:flex-col flex-row font-inter md:gap-10 items-start justify-between max-w-[1236px] mx-auto md:px-5 w-full">
             <div className="flex flex-col md:gap-10 gap-[103px] items-start justify-start md:mt-0 mt-[54px]">
+            <ToastContainer />
+              
               <Button
                 className="common-pointer bg-transparent cursor-pointer flex items-center justify-center min-w-[66px]"
                 onClick={() => navigate("/desktoptwelve")}
@@ -34,20 +73,37 @@ const DesktopTenPage = () => {
                   className="text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px] w-auto"
                   size="txtInterExtraBold30"
                 >
-                  Create Your Account
+                  Save Resy Account details
                 </Text>
                 <div className="flex flex-col items-start justify-start w-auto">
                   <div className="flex flex-col gap-4 items-start justify-start w-auto">
                     <div className="flex flex-col gap-4 items-start justify-start w-[343px]">
-                      <DesktopTwelveColumn
-                        className="flex flex-col gap-1 items-start justify-start w-full"
-                        labelOne="Full Name"
-                      />
-                      <DesktopTwelveColumn
-                        className="flex flex-col gap-1 items-start justify-start w-full"
-                        labelOne="Mail"
-                      />
-                      <DesktopTwelveColumn className="flex flex-col gap-1 items-start justify-start w-full" />
+                    <div className="flex flex-col gap-4 items-start justify-start w-full">
+                    <Text
+                      className="leading-[32.00px] max-w-[296px] md:max-w-full text-3xl sm:text-[26px] md:text-[28px] text-gray-900 tracking-[-0.75px]"
+                      size="txtInterExtraBold30"
+                    >
+
+                    </Text>
+                    <input placeholder="You name..." value={user_name}
+                      onChange={(e) => setUserName(e.target.value)} />
+                    <input placeholder="RESY Email..." value={resy_email}
+                      onChange={(e) => setResyEmail(e.target.value)} />
+                    <input type="password" value={resy_pwd}
+                      placeholder="RESY Password..." onChange={(e) => setResyPwd(e.target.value)} />
+
+
+                    <Button
+                      className="common-pointer cursor-pointer font-medium text-base text-center w-full"
+                      onClick={add_user_to_db}
+                      shape="round"
+                      color="red_400"
+                      size="sm"
+                      variant="fill"
+                    >
+                      Save Resy Account details
+                    </Button>
+                  </div>
                       <Button
                         className="cursor-pointer font-medium text-base text-center w-full"
                         shape="round"

@@ -19,6 +19,7 @@ function tConvert(time) {
 const ListBookings = (props) => {
     const navigate = useNavigate();
     const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+    console.log(props)
     var booking_date = new Date(props?.date)
     booking_date = booking_date.toLocaleDateString('en-US', DATE_OPTIONS)
     var booking_time = props?.from_time
@@ -27,8 +28,9 @@ const ListBookings = (props) => {
     const handleChange = (value) => {
         console.log(`You clicked on ${props.rest_id}`)
         const venue_id = props.rest_id
-        let path = `/desktopsix`;
-        navigate(path, { replace: true, state: { venue_id } });
+        let path = `/desktopfour`;
+        // navigate(path, { replace: true, state: { venue_id } });
+        navigate(path, { state: { data: props} });
     }
 
     return (

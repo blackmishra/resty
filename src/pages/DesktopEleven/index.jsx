@@ -52,7 +52,7 @@ const DesktopElevenPage = () => {
   }, [])
 
   console.log('Total number of outside Bookings: ', restData)
-  
+
 
   return (
     <>
@@ -84,12 +84,19 @@ const DesktopElevenPage = () => {
         </div> */}
         <div className="flex flex-col font-inter items-center mt-[93px] md:px-10 sm:px-5 px-[441px] w-full">
           <div className="flex flex-col gap-6 items-start justify-start w-auto sm:w-full">
+
+            <Text
+              className="text-gray-600 text-l w-auto"
+              size="txtInterMedium14Gray600"
+            >
+              View Past Bookings
+            </Text>
             <div className="flex flex-row gap-4 items-start justify-between w-full">
               <Text
                 className="text-gray-600 text-sm w-auto"
                 size="txtInterMedium14Gray600"
               >
-                {total_num_rest} Reservation(s)
+                {total_num_rest} Reservation(s) Found
               </Text>
               {/* <SelectBox
                 className="sm:flex-1 font-medium text-gray-600 text-left text-sm w-[19%] sm:w-full"
@@ -112,8 +119,9 @@ const DesktopElevenPage = () => {
               className="flex flex-col gap-6 items-start w-auto"
               orientation="vertical"
             >
+              
               {/* <ListBookings /> */}
-              {restData.length>0 && restData.map(
+              {restData.length > 0 && restData.map(
                 (props, index) => (
                   <React.Fragment
                     key={`ListBookings${index}`}

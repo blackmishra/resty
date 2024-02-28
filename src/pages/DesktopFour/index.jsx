@@ -1,16 +1,71 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react'
 import { Button, Img, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
+import DesktopSixImage from "components/DesktopSixImage";
+
+
+function tConvert(time) {
+  // Check correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) { // If time format correct
+      time = time.slice(1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+      time[3] = ''
+  }
+  return time.join(''); // return adjusted time or original string
+}
+
 
 const DesktopFourPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [resto_details, setRest_details] = useState("")
+  const bookingID = location.state.data.booking_id
+  const bookingStatus = location.state.data.booking_status
+  const bookedOn = location.state.data.created_at
+  const venueID = location.state.data.rest_id
+  const reservation_date = location.state.data.date
+  const rest_name = location.state.data.rest_name
+  const base_img_url = location.state.data.base_img_url
+
+  const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+  var booking_date = new Date(reservation_date)
+  booking_date = booking_date.toLocaleDateString('en-US', DATE_OPTIONS)
+  const booking_time = tConvert(location.state.data.from_time)
+  console.log(venueID, bookingID, bookingStatus, bookedOn, reservation_date, location.state.data.rating)
+  // console.log(booking_time, booking_date)
+
+  const base_url = process.env.REACT_APP_BASE_URL
+  const url = base_url + "find/" + venueID
+  const colorName = bookingStatus === "Pending" ? "red_50" : "gray_100_01";
+  console.log(colorName)
+
+
+  const fetchData = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setRest_details(json)
+        console.log(json)
+      })
+  }
+
+  useEffect(() => {
+    fetchData();
+    console.log("Fetching")
+    console.log(resto_details)
+  }, []);
+
 
   return (
-    <>
+    <>{resto_details &&
       <div className="bg-gray-50 flex flex-col font-copperplate gap-[54px] items-center justify-start mx-auto pb-72 w-full">
         <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
         <div className="flex flex-col font-inter gap-[55px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
@@ -35,7 +90,7 @@ const DesktopFourPage = () => {
                     className="text-base text-gray-900 w-auto"
                     size="txtInterMedium16"
                   >
-                    12 Chairs Cafe Soho, 4994
+                    {rest_name}
                   </Text>
                   <Text
                     className="text-gray-600 text-sm w-auto"
@@ -44,42 +99,19 @@ const DesktopFourPage = () => {
                     New York City
                   </Text>
                 </div>
-                <DesktopSixBadge className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                <DesktopSixBadge props= { {"rating": location.state.data.rating} } className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
               </div>
               <div className="flex flex-col gap-6 items-start justify-start w-[520px] sm:w-full">
                 <div className="flex flex-col items-center justify-start w-full">
                   <Img
                     className="h-[303px] md:h-auto object-cover rounded-bl-lg rounded-br-lg w-full"
-                    src="images/img_rectangle31.png"
+                    // src="images/img_rectangle31.png"
+                    src={base_img_url}
                     alt="rectangleThirtyOne"
                   />
                 </div>
                 <div className="flex sm:flex-col flex-row gap-4 items-start justify-between w-full">
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyOne_One"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyTwo"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyThree"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyFour"
-                  />
-                  <Img
-                    className="sm:flex-1 h-[67px] md:h-auto object-cover rounded-lg w-[92px] sm:w-full"
-                    src="images/img_rectangle31.png"
-                    alt="rectangleThirtyFive"
-                  />
+                <DesktopSixImage props={resto_details} />
                 </div>
               </div>
             </div>
@@ -92,7 +124,8 @@ const DesktopFourPage = () => {
                         <div className="flex flex-row gap-[18px] items-center justify-start w-[56%]">
                           <Img
                             className="h-[90px] md:h-auto object-cover rounded-lg w-[90px]"
-                            src="images/img_rectangle31.png"
+                            // src="images/img_rectangle31.png"
+                            src={base_img_url}
                             alt="rectangleThirty"
                           />
                           <div className="flex flex-col gap-[22px] items-start justify-start w-[54%]">
@@ -101,7 +134,7 @@ const DesktopFourPage = () => {
                                 className="text-base text-gray-900 w-auto"
                                 size="txtInterMedium16"
                               >
-                                11 Tigers, 64816
+                                {rest_name}
                               </Text>
                               <Text
                                 className="text-gray-600 text-sm w-auto"
@@ -110,7 +143,7 @@ const DesktopFourPage = () => {
                                 New York City
                               </Text>
                             </div>
-                            <DesktopSixBadge className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
+                            <DesktopSixBadge props= { {"rating": location.state.data.rating} } className="bg-gray-100 flex flex-row gap-0.5 items-center justify-center pl-2 pr-1 py-0.5 rounded-[10px] w-auto" />
                           </div>
                         </div>
                       </div>
@@ -126,7 +159,7 @@ const DesktopFourPage = () => {
                               className="text-gray-600 text-sm w-auto"
                               size="txtInterRegular14"
                             >
-                              2 Adults
+                              {location.state.data.number_of_guests} Adults
                             </Text>
                           </div>
                           <div className="flex flex-row gap-2 items-center justify-start w-auto">
@@ -139,7 +172,7 @@ const DesktopFourPage = () => {
                               className="text-gray-600 text-sm w-auto"
                               size="txtInterRegular14"
                             >
-                              Saturday, August 26 • 4:00 PM
+                              {booking_date} • {booking_time}
                             </Text>
                           </div>
                         </div>
@@ -175,11 +208,11 @@ const DesktopFourPage = () => {
                         </Text>
                         <Button
                           className="cursor-pointer min-w-[88px] rounded-[14px] text-center text-sm"
-                          color="gray_100_01"
+                          color={colorName}
                           size="xs"
                           variant="fill"
                         >
-                          Approved
+                          {bookingStatus}
                         </Button>
                       </div>
                       <div className="border-b border-gray-100 border-solid flex flex-row gap-1 items-start justify-between py-3 w-full">
@@ -193,7 +226,7 @@ const DesktopFourPage = () => {
                           className="text-blue_gray-800 text-sm w-auto"
                           size="txtInterRegular14Bluegray800"
                         >
-                          348512
+                          {bookingID}
                         </Text>
                       </div>
                       <div className="border-b border-gray-100 border-solid flex flex-row gap-1 items-start justify-between py-3 w-full">
@@ -207,7 +240,7 @@ const DesktopFourPage = () => {
                           className="text-blue_gray-800 text-sm w-auto"
                           size="txtInterRegular14Bluegray800"
                         >
-                          454671
+                          {venueID}
                         </Text>
                       </div>
                       <div className="flex flex-row gap-1 items-start justify-between py-3 w-full">
@@ -221,7 +254,7 @@ const DesktopFourPage = () => {
                           className="text-blue_gray-800 text-sm w-auto"
                           size="txtInterRegular14Bluegray800"
                         >
-                          Friday, August 15
+                          {bookedOn}
                         </Text>
                       </div>
                     </div>
@@ -242,6 +275,7 @@ const DesktopFourPage = () => {
           </div>
         </div>
       </div>
+      }
     </>
   );
 };

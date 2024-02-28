@@ -1,12 +1,14 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-
-import { Button, Img, SelectBox, Text } from "components";
+import ListBookings from "components/ListBookings";
+import { Button, Img, List, SelectBox, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import LogoutButton from "components/Logout";
+import Cookies from 'js-cookie';
+
 
 const thisMonthOptionsList = [
   { label: "Option1", value: "option1" },
@@ -16,6 +18,35 @@ const thisMonthOptionsList = [
 const DesktopThreePage = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const base_url = process.env.REACT_APP_BASE_URL
+  const [restData, setRestData] = useState('')
+  const search_url = base_url + 'view_bookings'
+
+  const getAllRest = () => {
+    console.log('Function called')
+    console.log(search_url)
+    const user_email = Cookies.get('user_email')
+    console.log('User email is: ', user_email)
+
+    fetch(search_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "user_email": user_email })
+    })
+      .then((response) => response.json())
+      .then(data => {
+        setRestData(Object.values(data))
+        console.log(Object.values(data).length);
+
+      })
+      .catch(error => console.error(`Error: $(error)`))
+  }
+
+  useEffect(() => {
+    getAllRest()
+  }, [])
 
   return (
     <>
@@ -39,18 +70,18 @@ const DesktopThreePage = () => {
           </div>
         </Button> */}
         <div className="flex flex-col font-inter items-center md:px-10 sm:px-5 px-[444px] w-full">
-          
+
           <div className="flex flex-col gap-8 items-start justify-start w-auto sm:w-full">
             <div className="flex flex-col gap-11 items-start justify-start w-auto sm:w-full">
               <div
                 className="common-pointer flex flex-row gap-4 items-center justify-start w-[41%] md:w-full">
-                  
+
                 <div className="bg-white-A700 flex flex-col h-16 items-center justify-start rounded-[50%] shadow-bs w-16">
                   <Img
-                      className="rounded-[50%] shadow-bs w-16"
-                      src={user.picture} alt={user.name}
-                    />
-                  
+                    className="rounded-[50%] shadow-bs w-16"
+                    src={user.picture} alt={user.name}
+                  />
+
                 </div>
                 <div className="flex flex-col gap-1.5 items-start justify-start w-[65%]">
                   <div className="flex flex-row gap-1 items-center justify-center w-auto">
@@ -85,7 +116,7 @@ const DesktopThreePage = () => {
                 </Text>
                 <div className="flex flex-col gap-3 items-end justify-start w-auto sm:w-full">
                   <div className="flex flex-col items-start justify-start w-auto sm:w-full">
-                    <div className="bg-gray-50 border border-gray-200 border-solid flex flex-col gap-3 items-start justify-start p-4 rounded-[16px] shadow-bs w-[552px] sm:w-full">
+                    {/* <div className="bg-gray-50 border border-gray-200 border-solid flex flex-col gap-3 items-start justify-start p-4 rounded-[16px] shadow-bs w-[552px] sm:w-full">
                       <div className="flex flex-col items-start justify-start w-full">
                         <div className="flex flex-row gap-[18px] items-center justify-start w-[45%]">
                           <Img
@@ -142,11 +173,29 @@ const DesktopThreePage = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
+                    <List
+              className="flex flex-col gap-6 items-start w-auto"
+              orientation="vertical"
+            > 
+              {/* <ListBookings /> */}
+              {restData.length>0 && restData.map(
+                (props, index) => (
+                  <React.Fragment
+                    key={`ListBookings${index}`}
+                  >
+                    <ListBookings
+                      className="flex flex-1 flex-col gap-2 items-start justify-start w-full"
+                      {...props}
+                    />
+                  </React.Fragment>
+                ),
+              )[0]}
+            </List>
                   </div>
                   <Button
                     className="common-pointer border border-blue_gray-100_01 border-solid cursor-pointer font-medium text-base text-center w-full"
-                    onClick={() => navigate("/desktop")}
+                    onClick={() => navigate("/desktopeleven")}
                     shape="round"
                     color="white_A700"
                     size="md"

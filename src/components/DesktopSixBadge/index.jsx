@@ -24,6 +24,6 @@ const DesktopSixBadge = ({props}) => {
   );
 };
 
-DesktopSixBadge.defaultProps = { userrating: "4.7" };
+DesktopSixBadge.defaultProps = { rating: "4.7" };
 
 export default DesktopSixBadge;
