@@ -9,7 +9,7 @@ import "./styles/tailwind.css";
 // import { createRoot } from 'react-dom/client';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const base_url = process.env.REACT_APP_BASE_URL
+const base_url = process.env.REACT_APP_HOME_URL
 const logout_url = base_url + '#/desktop'
 
 ReactDOM.render(
