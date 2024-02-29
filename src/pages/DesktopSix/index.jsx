@@ -30,9 +30,6 @@ const DesktopSixPage = () => {
   const [num_guests, setNumGuests] = useState(2);
   const [rating, setRating] = useState(4.5);
   const [base_img_url, setBaseImageURL] = useState('');
-
-
-
   const res_id = location.state.venue_id
   // const cookies = new Cookies();
 

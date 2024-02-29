@@ -6,7 +6,8 @@ import { Button, Img, Text } from "components";
 import DesktopSixBadge from "components/DesktopSixBadge";
 import DesktopSixteenHeader from "components/DesktopSixteenHeader";
 import DesktopSixImage from "components/DesktopSixImage";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function tConvert(time) {
   // Check correct time format and split into components
@@ -43,18 +44,42 @@ const DesktopFourPage = () => {
   // console.log(booking_time, booking_date)
 
   const base_url = process.env.REACT_APP_BASE_URL
-  const url = base_url + "find/" + venueID
-  const colorName = bookingStatus === "Pending" ? "red_50" : "gray_100_01";
+  const SEARCH_VENUE_API = base_url + "find/" + venueID
+  const CANCEL_RESERVATION_API = base_url + "cancel_booking"
+
+  const colorName = bookingStatus === "Confirmed" ? "gray_100_01" : "red_50";
   console.log(colorName)
 
 
   const fetchData = () => {
-    fetch(url)
+    fetch(SEARCH_VENUE_API)
       .then((response) => response.json())
       .then((json) => {
         setRest_details(json)
         console.log(json)
       })
+  };
+
+  const cancel_reservation = () => {
+    fetch(CANCEL_RESERVATION_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "booking_id": bookingID })
+    })
+      .then((response) => {
+        console.log(response);
+        if(response.status==200){
+          toast.success("Booking Cancellation successful!")
+
+        }
+        else{
+          toast.error("Bad Request. Please try again.")
+        }
+      })
+      
+      .catch(error => console.error(`Error: $(error)`))
   }
 
   useEffect(() => {
@@ -68,8 +93,8 @@ const DesktopFourPage = () => {
     <>{resto_details &&
       <div className="bg-gray-50 flex flex-col font-copperplate gap-[54px] items-center justify-start mx-auto pb-72 w-full">
         <DesktopSixteenHeader className="bg-white-A700 border-b border-blue_gray-100_01 border-solid flex flex-col gap-2.5 h-[74px] md:h-auto items-center justify-center max-w-[1440px] p-2.5 w-full" />
-        <div className="flex flex-col font-inter gap-[55px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
-          <Button
+        <div className="flex flex-col font-inter gap-[5px] items-start justify-start max-w-[1032px] mx-auto md:px-5 w-full">
+          {/* <Button
             className="common-pointer bg-transparent cursor-pointer flex items-center justify-center min-w-[66px]"
             onClick={() => navigate("/desktopfifteen")}
             leftIcon={
@@ -81,7 +106,9 @@ const DesktopFourPage = () => {
             }
           >
             <div className="text-base text-gray-900 text-left">Back</div>
-          </Button>
+          </Button> */}
+          <ToastContainer />
+
           <div className="flex md:flex-col flex-row gap-14 items-start justify-start max-w-[1032px] w-full">
             <div className="flex sm:flex-1 flex-col gap-8 items-start justify-start w-auto sm:w-full">
               <div className="flex flex-row gap-8 items-start justify-between w-full">
@@ -258,16 +285,22 @@ const DesktopFourPage = () => {
                         </Text>
                       </div>
                     </div>
-                    <Button
+                    {
+                      bookingStatus!='Cancelled' &&
+                      <Button
                       className="common-pointer !text-red-700 border border-blue_gray-100_01 border-solid cursor-pointer font-medium text-base text-center w-full"
-                      onClick={() => navigate("/desktopeight")}
+                      onClick={cancel_reservation}
                       shape="round"
-                      color="white_A700"
+                      color="white_A700" 
                       size="sm"
                       variant="fill"
+                      disabled={bookingStatus==='Cancelled'?true:false}
                     >
                       Cancel Reservation
                     </Button>
+
+                    }
+                    
                   </div>
                 </div>
               </div>
