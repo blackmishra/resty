@@ -2,6 +2,9 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Cookies from 'js-cookie';
 
+const base_url = process.env.REACT_APP_HOME_URL
+const logout_url = base_url + '#/desktop'
+
 const LogoutButton = () => {
   const { logout } = useAuth0();
   const logout_fun = () => {
@@ -10,7 +13,7 @@ const LogoutButton = () => {
     Cookies.remove('reservation_date')
     Cookies.remove('time_slot')
     Cookies.remove('guests_size')
-    logout({ logoutParams: { returnTo: window.location.origin + '/desktop' } })
+    logout({ logoutParams: { returnTo: logout_url } })
   }
 
   return (

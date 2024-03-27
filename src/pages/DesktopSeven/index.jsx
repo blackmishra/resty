@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
 import { Button, Img, Input, Text } from "components";
@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import Cookies from 'universal-cookie';
 import Cookies from 'js-cookie';
+import logo from 'assets/images/giphy.gif'
 
 
 
@@ -53,7 +54,7 @@ const DesktopSevenPage = () => {
       })
   }
 
-  
+
   // console.log(user.email)
   console.log('User email: ', user_email)
 
@@ -105,9 +106,23 @@ const DesktopSevenPage = () => {
       })
 
   }
+  const discardRequest = (req, res) => {
+    Cookies.remove('rest_name')
+    Cookies.remove('rest_id')
+    Cookies.remove('reservation_date')
+    Cookies.remove('time_slot')
+    Cookies.remove('guests_size')
+    toast.success("Booking Discarded!")
+    let path = `/desktop`;
+    setTimeout(() => {
+      navigate(path, { state: {} });
+    }, 1500);
+
+  }
 
   if (isLoading) {
-    return <div>Loading ...</div>;
+    <img src={logo} alt="loading..." />
+    // return <div>Loading ...</div>;
   }
   const logoutWithRedirect = () =>
     logout({
@@ -202,7 +217,20 @@ const DesktopSevenPage = () => {
                   >
                     Could not find your Resty account details!
                   </Text>
-
+                  <Text>
+                    To add your RESY Account details <a style={{ color: 'blue' }} href="/#/desktopfifteen">click here.</a>
+                  </Text>
+                  want to discard pending booking and start afresh.
+                  <Button
+                    className="cursor-pointer font-medium text-base text-center w-full"
+                    shape="round"
+                    color="red_400"
+                    size="sm"
+                    variant="fill"
+                    onClick={discardRequest}
+                  >
+                    Discard
+                  </Button>
                 </div>
 
               )}
