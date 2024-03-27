@@ -10,7 +10,7 @@ const Img = ({
     <img
       className={className}
       src={src}
-      alt={alt}
+      // alt={alt}
       {...restProps}
       loading={"lazy"}
     />

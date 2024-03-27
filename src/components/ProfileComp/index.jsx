@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Button, Img, Text } from "components";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Cookies from 'js-cookie';
+import logo from 'assets/images/giphy.gif'
+
 
 import {
     Collapse,
@@ -31,7 +33,11 @@ const Profile = (props) => {
         Cookies.set('user_email', user.email, { path: '/' });
       }
     if (isLoading) {
-        return <div>Loading ...</div>;
+        // return <div>Loading ...</div>;
+        if (isLoading) {
+          <img src={logo} />
+          // return <div>Loading ...</div>;
+        }
     }
     const logoutWithRedirect = () =>
     logout({
